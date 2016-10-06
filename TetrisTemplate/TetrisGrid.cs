@@ -11,6 +11,7 @@ class TetrisGrid
     {
         gridblock = b;
         position = Vector2.Zero;
+        offset = gridblock.Width;
         this.Clear();
     }
 
@@ -23,6 +24,16 @@ class TetrisGrid
      * the position of the tetris grid
      */
     Vector2 position;
+
+    /*
+    *  matrix voor het tekenen van de grid 
+    */
+    Color[,] matrix = new Color[20,12];
+
+    /*
+    *  width of sprite for offset
+    */
+    float offset;
 
     /*
      * width in terms of grid elements
@@ -45,6 +56,17 @@ class TetrisGrid
      */
     public void Clear()
     {
+        int i = 0, j = 0;
+        while (i < 20 && j < 12)
+        {
+            matrix[i, j] = Color.White;
+            j++;
+            if(j == 12)
+            {
+                j = 0;
+                i++;
+            }
+        }
     }
 
     /*
@@ -52,6 +74,22 @@ class TetrisGrid
      */
     public void Draw(GameTime gameTime, SpriteBatch s)
     {
+        int i = 0, j = 0;
+        position = new Vector2(0,0);
+        while (i < 20 && j < 12)
+        {
+            position.X = j * offset;
+            s.Draw(gridblock, position, null, matrix[i, j], 0.0f, Vector2.Zero,1.0f, SpriteEffects.None, 0);
+
+            j++;
+
+            if (j == 12)
+            {
+                j = 0;
+                i++;
+                position.Y = i * offset;
+            }
+        }
     }
 }
 
