@@ -57,19 +57,14 @@ class TetrisGrid
     public void Clear()
     {
         int i = 0, j = 0;
-        while (i < 20 && j < 12)
+        
+        for(i = 0; i < 20; i++)
         {
-            matrix[i, j] = Color.White;
-            j++;
-            if(j == 12)
+            for(j = 0; j < 12; j++)
             {
-                j = 0;
-                i++;
+                matrix[i, j] = Color.White;
             }
-        }
-        foreach(Color item in matrix)
-        {
-           // item.Color = Color.White;
+            j = 0;
         }
 
         
@@ -81,20 +76,18 @@ class TetrisGrid
     public void Draw(GameTime gameTime, SpriteBatch s)
     {
         int i = 0, j = 0;
-        position = new Vector2(0,0);
-        while (i < 20 && j < 12)
+        position = new Vector2(0, 0);
+    
+        for (i = 0; i < 20; i++)
         {
-            position.X = j * offset;
-            s.Draw(gridblock, position, null, matrix[i, j], 0.0f, Vector2.Zero,1.0f, SpriteEffects.None, 0);
-
-            j++;
-
-            if (j == 12)
+            j = 0;
+            position.Y = i * offset;
+            for (j = 0; j < 12; j++)
             {
-                j = 0;
-                i++;
-                position.Y = i * offset;
+                position.X = j * offset;
+                s.Draw(gridblock, position, null, matrix[i, j], 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
             }
+            
         }
     }
 }
