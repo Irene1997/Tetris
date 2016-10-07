@@ -67,6 +67,12 @@ class TetrisGrid
                 i++;
             }
         }
+        foreach(Color item in matrix)
+        {
+           // item.Color = Color.White;
+        }
+
+        
     }
 
     /*
