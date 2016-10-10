@@ -39,6 +39,9 @@
     </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="J.cs" />
+    <Compile Include="O.cs" />
+    <Compile Include="Tetromino.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="InputHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
