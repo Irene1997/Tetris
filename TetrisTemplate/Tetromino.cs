@@ -7,7 +7,7 @@ class Tetromino
     public Tetromino(Texture2D b)
     {
         gridblock = b;
-        position = Vector2.Zero;
+        blockposition = Vector2.Zero;
         offset = gridblock.Width;
         angle = 0;
     }
@@ -18,11 +18,11 @@ class Tetromino
      /*
      * the position of the tetris grid
      */
-    Vector2 position;
+    Vector2 blockposition;
      /*
     *  matrix voor het tekenen van de grid 
     */
-    public Color[,] matrix = new Color[4, 4];
+    public Color[,] block = new Color[4, 4];
     public Color blockColor = new Color(0, 204, 0);
      /*
     *  width of sprite for offset
@@ -75,7 +75,7 @@ class Tetromino
         {
             for (j = 0; j < 4; j++)
             {
-                matrix[i, j] = Color.White;
+                block[i, j] = Color.White;
             }
             j = 0;
         }

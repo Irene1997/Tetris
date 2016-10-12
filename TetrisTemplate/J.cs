@@ -12,37 +12,37 @@ class J : Tetromino
     public void up()
     {
         Clear();
-        matrix[1, 1] = blockColor;
-        matrix[1, 2] = blockColor;
-        matrix[2, 2] = blockColor;
-        matrix[3, 2] = blockColor;
+        block[1, 1] = blockColor;
+        block[1, 2] = blockColor;
+        block[2, 2] = blockColor;
+        block[3, 2] = blockColor;
     }
 
     public void right()
     {
         Clear();
-        matrix[1, 1] = blockColor;
-        matrix[1, 2] = blockColor;
-        matrix[1, 3] = blockColor;
-        matrix[2, 1] = blockColor;
+        block[1, 1] = blockColor;
+        block[1, 2] = blockColor;
+        block[1, 3] = blockColor;
+        block[2, 1] = blockColor;
     }
 
     public void down()
     {
         Clear();
-        matrix[0, 1] = blockColor;
-        matrix[1, 1] = blockColor;
-        matrix[2, 1] = blockColor;
-        matrix[2, 2] = blockColor;
+        block[0, 1] = blockColor;
+        block[1, 1] = blockColor;
+        block[2, 1] = blockColor;
+        block[2, 2] = blockColor;
     }
 
 
     public void left()
     {
         Clear();
-        matrix[1, 2] = blockColor;
-        matrix[2, 0] = blockColor;
-        matrix[2, 1] = blockColor;
-        matrix[2, 2] = blockColor;
+        block[1, 2] = blockColor;
+        block[2, 0] = blockColor;
+        block[2, 1] = blockColor;
+        block[2, 2] = blockColor;
     }
 }

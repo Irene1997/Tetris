@@ -13,10 +13,10 @@ class O : Tetromino
     public void up()
     {
         Clear();
-        matrix[1, 1] = blockColor;
-        matrix[1, 2] = blockColor;
-        matrix[2, 1] = blockColor;
-        matrix[2, 2] = blockColor;
+        block[1, 1] = blockColor;
+        block[1, 2] = blockColor;
+        block[2, 1] = blockColor;
+        block[2, 2] = blockColor;
     }
 
     public void right()
