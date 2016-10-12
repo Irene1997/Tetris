@@ -56,7 +56,7 @@ class TetrisGrid
      */
     public void Clear()
     {
-        int i = 0, j = 0;
+        int i, j;
         
         for(i = 0; i < 20; i++)
         {
@@ -70,12 +70,41 @@ class TetrisGrid
         
     }
 
+    public void SetBlockColour(int x, int y, Color color)
+    {
+        matrix[x, y] = color;
+
+
+
+        /*still working on this*/
+        /*
+        Color[,] block = new Color[4, 4];
+        int i, j;
+        for (i = 0; i < 4; i++)
+        {
+            for (j = 0; j < 4; j++)
+            {
+                isf (block[i,j] != Color.White)
+                {
+                    x = matrix.position.x + i;
+                    y = matrix.position.y + j;
+                    Tetrisgrid.SetBlockColour(x, y, block[i,j]);
+                }
+            }
+            j = 0;
+        }
+        */
+
+
+
+    }
+
     /*
      * draws the grid on the screen
      */
     public void Draw(GameTime gameTime, SpriteBatch s)
     {
-        int i = 0, j = 0;
+        int i, j;
         position = new Vector2(0, 0);
     
         for (i = 0; i < 20; i++)
