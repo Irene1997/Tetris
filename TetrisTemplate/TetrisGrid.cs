@@ -70,32 +70,9 @@ class TetrisGrid
         
     }
 
-    public void SetBlockColour(int x, int y, Color color)
+    public void SetBlock(int x, int y, Color color)
     {
         matrix[x, y] = color;
-
-
-
-        /*still working on this*/
-        /*
-        Color[,] block = new Color[4, 4];
-        int i, j;
-        for (i = 0; i < 4; i++)
-        {
-            for (j = 0; j < 4; j++)
-            {
-                isf (block[i,j] != Color.White)
-                {
-                    x = matrix.position.x + i;
-                    y = matrix.position.y + j;
-                    Tetrisgrid.SetBlockColour(x, y, block[i,j]);
-                }
-            }
-            j = 0;
-        }
-        */
-
-
 
     }
 

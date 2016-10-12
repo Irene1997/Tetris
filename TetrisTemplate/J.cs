@@ -4,12 +4,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 class J : Tetromino
 {
-    public J(Texture2D b) : base(b)
+    public J(Vector2 bPosition) : base(bPosition)
     {
         blockColor = Color.Blue;
     }
 
-    public void up()
+    public override void Up()
     {
         Clear();
         block[1, 1] = blockColor;
@@ -18,7 +18,7 @@ class J : Tetromino
         block[3, 2] = blockColor;
     }
 
-    public void right()
+    public override void Right()
     {
         Clear();
         block[1, 1] = blockColor;
@@ -27,7 +27,7 @@ class J : Tetromino
         block[2, 1] = blockColor;
     }
 
-    public void down()
+    public override void Down()
     {
         Clear();
         block[0, 1] = blockColor;
@@ -37,7 +37,7 @@ class J : Tetromino
     }
 
 
-    public void left()
+    public override void Left()
     {
         Clear();
         block[1, 2] = blockColor;

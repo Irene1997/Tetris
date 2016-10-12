@@ -4,13 +4,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 class O : Tetromino
 {
-    public O(Texture2D b) : base(b)
+    public O(Vector2 bPosition) : base(bPosition)
     {
         blockColor = Color.Yellow;
 
     }
 
-    public void up()
+    public override void Up()
     {
         Clear();
         block[1, 1] = blockColor;
@@ -19,20 +19,20 @@ class O : Tetromino
         block[2, 2] = blockColor;
     }
 
-    public void right()
+    public override void Right()
     {
-        up();
+        Up();
     }
 
-    public void down()
+    public override void Down()
     {
-        up();
+        Up();
     }
 
 
-    public void left()
+    public override void Left()
     {
-        up();
+        Up();
     }
 }
 

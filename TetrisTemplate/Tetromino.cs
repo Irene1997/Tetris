@@ -4,47 +4,44 @@ using Microsoft.Xna.Framework.Graphics;
 
 class Tetromino
 {
-    public Tetromino(Texture2D b)
+    Vector2 blockPosition;
+    public Tetromino(Vector2 bPosition)
     {
-        gridblock = b;
-        blockposition = Vector2.Zero;
-        offset = gridblock.Width;
         angle = 0;
+        blockPosition = bPosition;
     }
-     /*
-     * sprite for representing a single grid block
-     */
-    Texture2D gridblock;
+
      /*
      * the position of the tetris grid
      */
-    Vector2 blockposition;
+    
      /*
     *  matrix voor het tekenen van de grid 
     */
     public Color[,] block = new Color[4, 4];
-    public Color blockColor = new Color(0, 204, 0);
-     /*
-    *  width of sprite for offset
-    */
-    float offset;
-     /*
-     * width in terms of grid elements
-     */
-    public int Width
+    public Color blockColor;
+
+
+
+    public void Update(GameTime gameTime, TetrisGrid grid)
     {
-        get { return 4; }
+        int i, j;
+        for (i = 0; i < 4; i++)
+        {
+            for (j = 0; j < 4; j++)
+            {
+               int x = (int)blockPosition.X + i;
+               int y = (int)blockPosition.Y + j;
+               if (x >= 0 && y >= 0)
+               {
+                    grid.SetBlock(x, y, block[i, j]);
+               }
+            }
+            j = 0;
+        }
     }
-     /*
-     * height in terms of grid elements
-     */
-    public int Height
-    {
-        get { return 4; }
-    }
-     /*
-     * draws the grid on the screen
-     */
+
+
     public void Draw(GameTime gameTime, SpriteBatch s)
     {
         
@@ -65,11 +62,18 @@ class Tetromino
             angle = 0;
         }
         //}
+
+        
     }
+    
+    public virtual void Up() { }
+    public virtual void Right() { }
+    public virtual void Down() { }
+    public virtual void Left() { }
 
     public void Clear()
     {
-        int i = 0, j = 0;
+        int i, j;
 
         for (i = 0; i < 4; i++)
         {

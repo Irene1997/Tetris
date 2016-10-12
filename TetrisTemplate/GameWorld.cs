@@ -37,6 +37,7 @@ class GameWorld
      * sprite for representing a single tetris block element
      */
     Texture2D block;
+    Vector2 bPosition;
 
     /*
      * the current game state
@@ -48,6 +49,8 @@ class GameWorld
      */
     TetrisGrid grid;
 
+    Tetromino tetromino;
+
     public GameWorld(int width, int height, ContentManager Content)
     {
         screenWidth = width;
@@ -58,6 +61,9 @@ class GameWorld
         block = Content.Load<Texture2D>("block");
         font = Content.Load<SpriteFont>("SpelFont");
         grid = new TetrisGrid(block);
+        bPosition = new Vector2(-1, -1);
+
+        tetromino = new J(bPosition);
     }
 
     public void Reset()
@@ -70,6 +76,8 @@ class GameWorld
 
     public void Update(GameTime gameTime)
     {
+        tetromino.Update(gameTime, grid);
+        tetromino.Up();
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
