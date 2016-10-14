@@ -46,20 +46,7 @@ class Tetromino
 
     public void Update(GameTime gameTime, TetrisGrid grid)
     {
-        int i, j;
-        for (i = 0; i < 4; i++)
-        {
-            for (j = 0; j < 4; j++)
-            {
-               int x = (int)blockPosition.X + i;
-               int y = (int)blockPosition.Y + j;
-               if (block[i,j] != Color.White && x >= 0 && y >= 0)
-               {
-                    grid.SetBlock(x, y, block[i, j]);
-               }
-            }
-            j = 0;
-        }
+
     }
 
     public Color GetBlock(int i, int j)
@@ -76,24 +63,26 @@ class Tetromino
 
     public void Draw(GameTime gameTime, SpriteBatch s, Texture2D gridblock, TetrisGrid grid)
     {
-        int i, j;
-        int offset = 0;
+        float offset = gridblock.Width;
         Vector2 position = new Vector2(0, 0);
-        
-        for (i = 0; i < 12; i++)
+
+        int i, j;
+        for (i = 0; i < 4; i++)
         {
-            j = 0;
-            position.X = i * offset;
-            for (j = 0; j < 20; j++)
+            for (j = 0; j < 4; j++)
             {
-                position.Y = j * offset;
-                if block[i + position.X, j + position.Y] != Color.White)
+                int x = (int)blockPosition.X + i;
+                int y = (int)blockPosition.Y + j;
+                if (block[i, j] != Color.White && x >= 0 && y >= 0)
                 {
-                    s.Draw(gridblock, position, null, grid.GetMatrix(i, j), 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+                    position.X = x * offset;
+                    position.Y = y * offset;
+                    s.Draw(gridblock, position, null, block[i, j], 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
                 }
             }
-
+            j = 0;
         }
+
     }
 
 

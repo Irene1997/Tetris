@@ -77,6 +77,7 @@ class GameWorld
         tetromino.MoveDown(gameTime, inputHelper);
         tetromino.MoveRight(gameTime, inputHelper);
         tetromino.MoveLeft(gameTime, inputHelper);
+        tetromino.turnRight(gameTime, inputHelper);
     }
 
     public void Update(GameTime gameTime)
