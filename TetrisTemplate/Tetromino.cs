@@ -12,16 +12,10 @@ class Tetromino
         blockPosition = bPosition;
     }
 
-     /*
-     * the position of the tetris grid
-     */
-    
-     /*
-    *  matrix voor het tekenen van de grid 
-    */
     public Color[,] block = new Color[4, 4];
     public Color blockColor;
     public double LastPressedDown;
+    int angle; //0 = up, 1 = right, 2 = down, 3 = left
 
     public void MoveDown(GameTime gameTime, InputHelper inputHelper)
     {
@@ -68,7 +62,7 @@ class Tetromino
         }
     }
 
-public Color GetBlock(int i, int j)
+    public Color GetBlock(int i, int j)
     {
         if (i >= 0 && i <= 3 && j >= 0 && j <= 3)
         {
@@ -80,22 +74,6 @@ public Color GetBlock(int i, int j)
         }
     }
 
-    /*
-    int l, k;
-        for (l = 0; l< 4; i++)
-        {
-            for (k = 0; k< 4; j++)
-            {
-               int x = (int)blockPosition.X + l;
-               int y = (int)blockPosition.Y + k;
-               if (x >= 0 && y >= 0)
-               {
-                    grid.SetBlock(x, y, block[i, j]);
-               }
-            }
-            j = 0;
-        }
-    */
     public void Draw(GameTime gameTime, SpriteBatch s, Texture2D gridblock, TetrisGrid grid)
     {
         int i, j;
@@ -118,7 +96,7 @@ public Color GetBlock(int i, int j)
         }
     }
 
-    int angle; //0 = up, 1 = right, 2 = down, 3 = left
+
 
     public void turnRight(GameTime gameTime, InputHelper inputHelper)
     {
