@@ -122,19 +122,29 @@ public Color GetBlock(int i, int j)
 
     public void turnRight(GameTime gameTime, InputHelper inputHelper)
     {
-        //if(there is space)
-        //{
-        if (inputHelper.KeyPressed(Keys.Up) && angle < 4)
+        if(inputHelper.KeyPressed(Keys.Up)/*and there is space*/)
         {
-            angle++;
-        }
-        else if(inputHelper.KeyPressed(Keys.Up))
-        {
-            angle = 0;
-        }
-        //}
-
-        
+            if (angle == 0)
+            {
+                angle++;
+                Right();
+            }
+            else if(angle == 1)
+            {
+                angle++;
+                Down();
+            }
+            else if (angle == 2)
+            {
+                angle++;
+                Left();
+            }
+            else if (angle == 3)
+            {
+                angle = 0;
+                Up();
+            }
+        } 
     }
     
     public virtual void Up() { }
