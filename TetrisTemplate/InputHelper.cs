@@ -48,6 +48,17 @@ class InputHelper
         currentKeyboardState = Keyboard.GetState();
     }
 
+
+
+    public double LastPressed()
+    {
+        return timeSinceLastKeyPress;
+    }
+
+    public void ResetLastPressed()
+    {
+        timeSinceLastKeyPress = 0;
+    }
     /*
      * returns the current mouse position
      */

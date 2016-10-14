@@ -28,7 +28,7 @@ class TetrisGrid
     /*
     *  matrix voor het tekenen van de grid 
     */
-    Color[,] matrix = new Color[20,12];
+    Color[,] matrix = new Color[12,20];
 
     /*
     *  width of sprite for offset
@@ -58,9 +58,9 @@ class TetrisGrid
     {
         int i, j;
         
-        for(i = 0; i < 20; i++)
+        for(i = 0; i < 12; i++)
         {
-            for(j = 0; j < 12; j++)
+            for(j = 0; j < 20; j++)
             {
                 matrix[i, j] = Color.White;
             }
@@ -70,10 +70,24 @@ class TetrisGrid
         
     }
 
+    public Color GetMatrix(int i, int j)
+    {
+        if (i >= 0 && i <= 11 && j >= 0 && j <= 19)
+        {
+            return matrix[i, j];
+        }
+        else
+        {
+            return new Color(0, 204, 0);
+        }
+    }
+
     public void SetBlock(int x, int y, Color color)
     {
-        matrix[x, y] = color;
-
+        if (x >= 0 && x <= 11 && y >= 0 && y <= 19)
+        {
+            matrix[x, y] = color;
+        }
     }
 
     /*
@@ -84,14 +98,14 @@ class TetrisGrid
         int i, j;
         position = new Vector2(0, 0);
     
-        for (i = 0; i < 20; i++)
+        for (i = 0; i < 12; i++)
         {
             j = 0;
-            position.Y = i * offset;
-            for (j = 0; j < 12; j++)
+            position.X = i * offset;
+            for (j = 0; j < 20; j++)
             {
-                position.X = j * offset;
-                s.Draw(gridblock, position, null, matrix[i, j], 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+                position.Y = j * offset;
+                s.Draw(gridblock, position, null, this.GetMatrix(i, j), 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
             }
             
         }

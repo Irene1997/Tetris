@@ -61,6 +61,8 @@ class GameWorld
         block = Content.Load<Texture2D>("block");
         font = Content.Load<SpriteFont>("SpelFont");
         grid = new TetrisGrid(block);
+
+        //hier moet nog een random plaats benoemd worden
         bPosition = new Vector2(-1, -1);
 
         tetromino = new J(bPosition);
@@ -72,6 +74,9 @@ class GameWorld
 
     public void HandleInput(GameTime gameTime, InputHelper inputHelper)
     {
+        tetromino.MoveDown(gameTime, inputHelper);
+        tetromino.MoveRight(gameTime, inputHelper);
+        tetromino.MoveLeft(gameTime, inputHelper);
     }
 
     public void Update(GameTime gameTime)
@@ -84,7 +89,8 @@ class GameWorld
     {
         spriteBatch.Begin();
         grid.Draw(gameTime, spriteBatch);
-        DrawText("Hello!", Vector2.Zero, spriteBatch);
+        tetromino.Draw(gameTime, spriteBatch, block, grid);
+        DrawText("Hello! It's me", Vector2.Zero, spriteBatch);
         spriteBatch.End();    
     }
 
