@@ -50,6 +50,8 @@ class Tetromino
         }
     }
 
+    public void 
+
     public void Update(GameTime gameTime, TetrisGrid grid)
     {
         int i, j;
@@ -59,7 +61,7 @@ class Tetromino
             {
                int x = (int)blockPosition.X + i;
                int y = (int)blockPosition.Y + j;
-               if (x >= 0 && y >= 0)
+               if (block[i,j] != Color.White && x >= 0 && y >= 0)
                {
                     grid.SetBlock(x, y, block[i, j]);
                }
@@ -67,22 +69,7 @@ class Tetromino
             j = 0;
         }
     }
-    /*
-    int l, k;
-        for (l = 0; l< 4; i++)
-        {
-            for (k = 0; k< 4; j++)
-            {
-               int x = (int)blockPosition.X + l;
-               int y = (int)blockPosition.Y + k;
-               if (x >= 0 && y >= 0)
-               {
-                    grid.SetBlock(x, y, block[i, j]);
-               }
-            }
-            j = 0;
-        }
-    */
+ 
     public void Draw(GameTime gameTime, SpriteBatch s, Texture2D gridblock, TetrisGrid grid)
     {
         int i, j;
@@ -107,15 +94,15 @@ class Tetromino
 
     int angle; //0 = up, 1 = right, 2 = down, 3 = left
 
-    void turnRight()
+    public void turnRight(GameTime gameTime, InputHelper inputHelper)
     {
         //if(there is space)
         //{
-        if (angle < 4)
+        if (inputHelper.KeyPressed(Keys.Up) && angle < 4)
         {
             angle++;
         }
-        else
+        else if(inputHelper.KeyPressed(Keys.Up))
         {
             angle = 0;
         }
