@@ -50,8 +50,6 @@ class Tetromino
         }
     }
 
-    public void 
-
     public void Update(GameTime gameTime, TetrisGrid grid)
     {
         int i, j;
@@ -69,7 +67,35 @@ class Tetromino
             j = 0;
         }
     }
- 
+
+public Color GetBlock(int i, int j)
+    {
+        if (i >= 0 && i <= 3 && j >= 0 && j <= 3)
+        {
+            return block[i, j];
+        }
+        else
+        {
+            return Color.White;
+        }
+    }
+
+    /*
+    int l, k;
+        for (l = 0; l< 4; i++)
+        {
+            for (k = 0; k< 4; j++)
+            {
+               int x = (int)blockPosition.X + l;
+               int y = (int)blockPosition.Y + k;
+               if (x >= 0 && y >= 0)
+               {
+                    grid.SetBlock(x, y, block[i, j]);
+               }
+            }
+            j = 0;
+        }
+    */
     public void Draw(GameTime gameTime, SpriteBatch s, Texture2D gridblock, TetrisGrid grid)
     {
         int i, j;
