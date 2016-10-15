@@ -19,7 +19,7 @@ class Tetromino
 
     public void Update(GameTime gameTime, TetrisGrid grid, InputHelper inputHelper)
     {
-        if (inputHelper.KeyPressed(Keys.Down) || LastPressedDown >= 300.0)
+        if (inputHelper.KeyPressed(Keys.Down) || inputHelper.KeyPressed(Keys.S) || LastPressedDown >= 300.0)
         {
             blockPosition.Y++;
             LastPressedDown = 0;
@@ -31,7 +31,7 @@ class Tetromino
         }
         LastPressedDown += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-        if (inputHelper.KeyPressed(Keys.Up))
+        if (inputHelper.KeyPressed(Keys.Up) || inputHelper.KeyPressed(Keys.E))
         {
             turnRight();
             if(!canPlace(grid))
@@ -40,7 +40,7 @@ class Tetromino
             }
         }
 
-        if (inputHelper.KeyPressed(Keys.RightShift))
+        if (inputHelper.KeyPressed(Keys.RightShift) || inputHelper.KeyPressed(Keys.Q))
         {
             turnLeft();
             if (!canPlace(grid))
@@ -49,7 +49,7 @@ class Tetromino
             }
         }
 
-        if (inputHelper.KeyPressed(Keys.Left))
+        if (inputHelper.KeyPressed(Keys.Left) || inputHelper.KeyPressed(Keys.A))
         {
             blockPosition.X--;
             if (!canPlace(grid))
@@ -58,7 +58,7 @@ class Tetromino
             }
         }
 
-        if (inputHelper.KeyPressed(Keys.Right))
+        if (inputHelper.KeyPressed(Keys.Right) || inputHelper.KeyPressed(Keys.D))
         {
             blockPosition.X++;
             if (!canPlace(grid))
