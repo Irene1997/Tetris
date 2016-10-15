@@ -5,51 +5,37 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using System;
 
-/*
- * A class for representing the game world.
- */
+
 class GameWorld
 {
-    /*
-     * enum for different game states (playing or game over)
-     */
+
     enum GameState
     {
         Playing, GameOver
     }
 
-    /*
-     * screen width and height
-     */
+
     int screenWidth, screenHeight;
 
-    /*
-     * random number generator
-     */
+
     Random random;
 
-    /*
-     * main game font
-     */
+
     SpriteFont font;
 
-    /*
-     * sprite for representing a single tetris block element
-     */
+
     Texture2D block;
     Vector2 bPosition;
 
-    /*
-     * the current game state
-     */
+
     GameState gameState;
 
-    /*
-     * the main playing grid
-     */
+
     TetrisGrid grid;
 
     Tetromino tetromino;
+
+    InputHelper inputhelper;
 
     public GameWorld(int width, int height, ContentManager Content)
     {
@@ -61,8 +47,10 @@ class GameWorld
         block = Content.Load<Texture2D>("block");
         font = Content.Load<SpriteFont>("SpelFont");
         grid = new TetrisGrid(block);
+        inputhelper = new InputHelper();
 
         //hier moet nog een random plaats benoemd worden
+            //note from John to Anne, plaats is altijd in het middden...
         bPosition = new Vector2(-1, -1);
 
         tetromino = new J(bPosition);
@@ -74,16 +62,12 @@ class GameWorld
 
     public void HandleInput(GameTime gameTime, InputHelper inputHelper)
     {
-        tetromino.MoveDown(gameTime, inputHelper);
-        tetromino.MoveRight(gameTime, inputHelper);
-        tetromino.MoveLeft(gameTime, inputHelper);
-        tetromino.turnRight(gameTime, inputHelper);
+
     }
 
-    public void Update(GameTime gameTime)
+    public void Update(GameTime gameTime, InputHelper inputHelper)
     {
-        tetromino.Update(gameTime, grid);
-        tetromino.Up();
+        tetromino.Update(gameTime, grid, inputHelper);
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)

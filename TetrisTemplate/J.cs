@@ -7,6 +7,7 @@ class J : Tetromino
     public J(Vector2 bPosition) : base(bPosition)
     {
         blockColor = Color.Blue;
+        Up();
     }
 
     public override void Up()

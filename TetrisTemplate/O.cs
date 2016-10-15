@@ -7,7 +7,7 @@ class O : Tetromino
     public O(Vector2 bPosition) : base(bPosition)
     {
         blockColor = Color.Yellow;
-
+        Up();
     }
 
     public override void Up()

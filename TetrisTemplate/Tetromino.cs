@@ -17,36 +17,55 @@ class Tetromino
     public double LastPressedDown;
     int angle; //0 = up, 1 = right, 2 = down, 3 = left
 
-    public void MoveDown(GameTime gameTime, InputHelper inputHelper)
+    public void Update(GameTime gameTime, TetrisGrid grid, InputHelper inputHelper)
     {
         if (inputHelper.KeyPressed(Keys.Down) || LastPressedDown >= 300.0)
         {
             blockPosition.Y++;
             LastPressedDown = 0;
+            if(!canPlace(grid))
+            {
+                blockPosition.Y--;
+                /*place tetromino in matrix and place next tetromino*/
+            }
         }
         LastPressedDown += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-    }
-
-    public void MoveRight(GameTime gameTime, InputHelper inputHelper)
-    {
-        if (inputHelper.KeyPressed(Keys.Right))
+        if (inputHelper.KeyPressed(Keys.Up))
         {
-            blockPosition.X++;
+            turnRight();
+            if(!canPlace(grid))
+            {
+                turnLeft();
+            }
         }
-    }
 
-    public void MoveLeft(GameTime gameTime, InputHelper inputHelper)
-    {
+        if (inputHelper.KeyPressed(Keys.RightShift))
+        {
+            turnLeft();
+            if (!canPlace(grid))
+            {
+                turnRight();
+            }
+        }
+
         if (inputHelper.KeyPressed(Keys.Left))
         {
             blockPosition.X--;
+            if (!canPlace(grid))
+            {
+                blockPosition.X++;
+            }
         }
-    }
 
-    public void Update(GameTime gameTime, TetrisGrid grid)
-    {
-
+        if (inputHelper.KeyPressed(Keys.Right))
+        {
+            blockPosition.X++;
+            if (!canPlace(grid))
+            {
+                blockPosition.X--;
+            }
+        }
     }
 
     public Color GetBlock(int i, int j)
@@ -59,6 +78,71 @@ class Tetromino
         {
             return Color.White;
         }
+    }
+
+    public void turnLeft()
+    {
+        if (angle == 0)
+        {
+            angle = 3;
+            Left();
+        }
+        else if (angle == 1)
+        {
+            angle--;
+            Up();
+        }
+        else if (angle == 2)
+        {
+            angle--;
+            Right();
+        }
+        else if (angle == 3)
+        {
+            angle--;
+            Down();
+        }
+    }
+
+    public void turnRight()
+    {
+        if (angle == 0)
+        {
+            angle++;
+            Right();
+        }
+        else if (angle == 1)
+        {
+            angle++;
+            Down();
+        }
+        else if (angle == 2)
+        {
+            angle++;
+            Left();
+        }
+        else if (angle == 3)
+        {
+            angle = 0;
+            Up();
+        }
+    }
+
+    public bool canPlace(TetrisGrid grid)
+    {
+        int i, j;
+        for (i = 0; i < 4; i++)
+        {
+            for (j = 0; j < 4; j++)
+            {
+                if (GetBlock(i, j) != Color.White && grid.GetMatrix(i + (int)blockPosition.X, j + (int)blockPosition.Y) != Color.White)
+                {
+                    return false;
+                }
+            }
+            j = 0;
+        }
+        return true;
     }
 
     public void Draw(GameTime gameTime, SpriteBatch s, Texture2D gridblock, TetrisGrid grid)
@@ -83,35 +167,6 @@ class Tetromino
             j = 0;
         }
 
-    }
-
-
-
-    public void turnRight(GameTime gameTime, InputHelper inputHelper)
-    {
-        if(inputHelper.KeyPressed(Keys.Up)/*and there is space*/)
-        {
-            if (angle == 0)
-            {
-                angle++;
-                Right();
-            }
-            else if(angle == 1)
-            {
-                angle++;
-                Down();
-            }
-            else if (angle == 2)
-            {
-                angle++;
-                Left();
-            }
-            else if (angle == 3)
-            {
-                angle = 0;
-                Up();
-            }
-        } 
     }
     
     public virtual void Up() { }
