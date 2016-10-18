@@ -31,8 +31,8 @@ class GameWorld
     Tetromino tetromino;
 
     InputHelper inputhelper;
-
-    string[] tetrom = new string[7] { "J", "L", "O", "T", "I", "Z", "S"};
+    
+    
 
     public GameWorld(int width, int height, ContentManager Content)
     {
@@ -47,16 +47,15 @@ class GameWorld
         inputhelper = new InputHelper();
 
         //hier moet nog een random plaats benoemd worden
-            //note from John to Anne, plaats is altijd in het middden...
+        //note from John to Anne, plaats is altijd in het middden...
+
         bPosition = new Vector2(-1, -1);
 
+        //tetromino = new grid.RandomBlock()(bPosition);
         tetromino = new J(bPosition);
     }
 
-    public void RandomBlock()
-    {
-
-    }
+   
 
     public void Reset()
     {

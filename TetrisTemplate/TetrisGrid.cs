@@ -27,6 +27,9 @@ class TetrisGrid
     /* width of sprite for offset */
     float offset;
 
+    string[] tetrom = new string[7] { "J", "L", "O", "T", "I", "Z", "S" };
+    string nowTetrom, nextTetrom = "J";
+
     /*width in terms of grid elements */
     public int Width
     {
@@ -60,10 +63,10 @@ class TetrisGrid
         
     }
     //checks if a row is full, if so return true, else return false
-    public bool RowFull(int x)
+    public bool RowFull(int y)
     {
-        int y = 0;
-        for (y = 0; y < 20; y++)
+        int x = 0;
+        for (x = 0; x < 12; x++)
         {
              if (matrix[x, y] == Color.White)
              {
@@ -71,6 +74,18 @@ class TetrisGrid
              }
         }
         return true;
+    }
+
+    public string RandomBlock()
+    {
+        //this is how we will display the block on the side.
+
+        nowTetrom = nextTetrom;
+        return nowTetrom;
+
+        //make random number from 0-6
+        //nextTetrom = tetrom[/*random number*/5];
+
     }
 
     public Color GetMatrix(int i, int j)
