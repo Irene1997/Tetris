@@ -17,25 +17,22 @@ class GameWorld
 
     int screenWidth, screenHeight;
 
-
     Random random;
 
-
     SpriteFont font;
-
 
     Texture2D block;
     Vector2 bPosition;
 
-
     GameState gameState;
-
 
     TetrisGrid grid;
 
     Tetromino tetromino;
 
     InputHelper inputhelper;
+
+    string[] tetrom = new string[7] { "J", "L", "O", "T", "I", "Z", "S"};
 
     public GameWorld(int width, int height, ContentManager Content)
     {
@@ -54,6 +51,11 @@ class GameWorld
         bPosition = new Vector2(-1, -1);
 
         tetromino = new J(bPosition);
+    }
+
+    public void RandomBlock()
+    {
+
     }
 
     public void Reset()

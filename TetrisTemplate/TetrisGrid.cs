@@ -15,29 +15,19 @@ class TetrisGrid
         this.Clear();
     }
 
-    /*
-     * sprite for representing a single grid block
-     */
+    /*sprite for representing a single grid block*/
     Texture2D gridblock;
 
-    /*
-     * the position of the tetris grid
-     */
+    /*the position of the tetris grid */
     Vector2 position;
 
-    /*
-    *  matrix voor het tekenen van de grid 
-    */
+    /*matrix voor het tekenen van de grid*/
     Color[,] matrix = new Color[12,20];
 
-    /*
-    *  width of sprite for offset
-    */
+    /* width of sprite for offset */
     float offset;
 
-    /*
-     * width in terms of grid elements
-     */
+    /*width in terms of grid elements */
     public int Width
     {
         get { return 12; }
@@ -68,6 +58,19 @@ class TetrisGrid
         }
 
         
+    }
+    //checks if a row is full, if so return true, else return false
+    public bool RowFull(int x)
+    {
+        int y = 0;
+        for (y = 0; y < 20; y++)
+        {
+             if (matrix[x, y] == Color.White)
+             {
+                return false;
+             }
+        }
+        return true;
     }
 
     public Color GetMatrix(int i, int j)

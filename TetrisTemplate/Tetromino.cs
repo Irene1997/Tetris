@@ -27,6 +27,7 @@ class Tetromino
             {
                 blockPosition.Y--;
                 /*place tetromino in matrix and place next tetromino*/
+                PlaceBlock(grid);
             }
         }
         LastPressedDown += gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -77,6 +78,24 @@ class Tetromino
         else
         {
             return Color.White;
+        }
+    }
+
+    public void PlaceBlock(TetrisGrid grid)
+    {
+        int i, j;
+        for (i = 0; i < 4; i++)
+        {
+            for (j = 0; j < 4; j++)
+            {
+                int x = (int)blockPosition.X + i;
+                int y = (int)blockPosition.Y + j;
+                if (block[i, j] != Color.White && x >= 0 && y >= 0)
+                {
+                    grid.SetBlock(x, y, block[i, j]);
+                }
+            }
+            j = 0;
         }
     }
 

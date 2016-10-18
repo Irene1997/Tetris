@@ -39,14 +39,19 @@
     </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="I.cs" />
     <Compile Include="J.cs" />
+    <Compile Include="L.cs" />
     <Compile Include="O.cs" />
+    <Compile Include="S.cs" />
+    <Compile Include="T.cs" />
     <Compile Include="Tetromino.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="InputHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TetrisGame.cs" />
     <Compile Include="TetrisGrid.cs" />
+    <Compile Include="Z.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
