@@ -15,6 +15,8 @@ class TetrisGrid
         this.Clear();
     }
 
+    Random random;
+
     /*sprite for representing a single grid block*/
     Texture2D gridblock;
 
@@ -84,7 +86,7 @@ class TetrisGrid
         return nowTetrom;
 
         //make random number from 0-6
-        //nextTetrom = tetrom[/*random number*/5];
+        //nextTetrom = tetrom[random.Next(7)];
 
     }
 

@@ -6,7 +6,7 @@ class S : Tetromino
 {
     public S(Vector2 bPosition) : base(bPosition)
     {
-        blockColor = Color.Black;
+        blockColor = new Color(0,204,0);
         Up();
     }
 

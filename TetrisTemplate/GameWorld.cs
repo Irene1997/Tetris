@@ -45,14 +45,10 @@ class GameWorld
         font = Content.Load<SpriteFont>("SpelFont");
         grid = new TetrisGrid(block);
         inputhelper = new InputHelper();
-
-        //hier moet nog een random plaats benoemd worden
-        //note from John to Anne, plaats is altijd in het middden...
-
-        bPosition = new Vector2(-1, -1);
+        bPosition = new Vector2(4, -1);
 
         //tetromino = new grid.RandomBlock()(bPosition);
-        tetromino = new J(bPosition);
+        tetromino = new S(bPosition);
     }
 
    

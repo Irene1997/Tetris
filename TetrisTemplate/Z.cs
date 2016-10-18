@@ -6,7 +6,7 @@ class Z : Tetromino
 {
     public Z(Vector2 bPosition) : base(bPosition)
     {
-        blockColor = Color.Black;
+        blockColor = Color.Red;
         Up();
     }
 

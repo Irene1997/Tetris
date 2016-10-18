@@ -98,9 +98,9 @@ class Tetromino
             {
                 int x = (int)blockPosition.X + i;
                 int y = (int)blockPosition.Y + j;
-                if (block[i, j] != Color.White && x >= 0 && y >= 0)
+                if (GetBlock(i, j) != Color.White/* && x >= 0 && y >= 0  al in je SetBlock method beveiligd*/)
                 {
-                    grid.SetBlock(x, y, block[i, j]);
+                    grid.SetBlock(x, y, GetBlock(i, j));
                 }
             }
             j = 0;

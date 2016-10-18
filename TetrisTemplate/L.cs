@@ -6,7 +6,7 @@ class L : Tetromino
 {
     public L(Vector2 bPosition) : base(bPosition)
     {
-        blockColor = Color.Blue;
+        blockColor = Color.Orange;
         Up();
     }
 
