@@ -37,7 +37,6 @@ class J : Tetromino
         block[2, 2] = blockColor;
     }
 
-
     public override void Left()
     {
         Clear();
