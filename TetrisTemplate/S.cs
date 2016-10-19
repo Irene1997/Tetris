@@ -13,10 +13,10 @@ class S : Tetromino
     public override void Up()
     {
         Clear();
-        block[1, 1] = blockColor;
-        block[2, 1] = blockColor;
         block[0, 2] = blockColor;
+        block[1, 1] = blockColor;
         block[1, 2] = blockColor;
+        block[2, 1] = blockColor;
     }
 
     public override void Right()
@@ -30,12 +30,20 @@ class S : Tetromino
 
     public override void Down()
     {
-        Up();
+        Clear();
+        block[1, 2] = blockColor;
+        block[2, 1] = blockColor;
+        block[2, 2] = blockColor;
+        block[3, 1] = blockColor;
     }
 
 
     public override void Left()
     {
-        Right();
+        Clear();
+        block[1, 1] = blockColor;
+        block[1, 2] = blockColor;
+        block[2, 2] = blockColor;
+        block[2, 3] = blockColor;
     }
 }

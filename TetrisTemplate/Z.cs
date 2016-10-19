@@ -30,12 +30,20 @@ class Z : Tetromino
 
     public override void Down()
     {
-        Up();
+        Clear();
+        block[1, 1] = blockColor;
+        block[2, 1] = blockColor;
+        block[2, 2] = blockColor;
+        block[3, 2] = blockColor;
     }
 
 
     public override void Left()
     {
-        Right();
+        Clear();
+        block[2, 1] = blockColor;
+        block[1, 2] = blockColor;
+        block[2, 2] = blockColor;
+        block[1, 3] = blockColor;
     }
 }
