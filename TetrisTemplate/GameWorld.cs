@@ -25,6 +25,7 @@ class GameWorld
     Vector2 bPosition;
 
     GameState gameState;
+    int score = 0;
 
     TetrisGrid grid;
 
@@ -97,6 +98,11 @@ class GameWorld
       
     }
 
+    public void AddScore(int add)
+    {
+        score += add;
+    }
+
     public void HandleInput(GameTime gameTime, InputHelper inputHelper)
     {
 
@@ -113,6 +119,7 @@ class GameWorld
         grid.Draw(gameTime, spriteBatch);
         tetromino.Draw(gameTime, spriteBatch, block, grid);
         DrawText("Hello! It's me", new Vector2(400,0), spriteBatch);
+        DrawText("Score: " + score, new Vector2(400, 30), spriteBatch);
         spriteBatch.End();    
     }
 

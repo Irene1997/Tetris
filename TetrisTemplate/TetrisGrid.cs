@@ -63,8 +63,7 @@ class TetrisGrid
     //checks if a row is full, if so return true, else return false
     public bool RowFull(int y)
     {
-        int x = 0;
-        for (x = 0; x < 12; x++)
+        for (int x = 0; x < 12; x++)
         {
              if (matrix[x, y] == Color.White)
              {
@@ -74,9 +73,16 @@ class TetrisGrid
         return true;
     }
 
-   public void EmptyRow()
+    public void EmptyRow(int y)
     {
-
+        for (int i = y; i > 0; i--)
+        { 
+            for (int x = 0; x < 12; x++)
+            {
+                matrix[x, i] = GetMatrix(x, i - 1);
+                //matrix[x, i] = matrix[x, i - 1];
+            }
+        }
     }
 
     public Color GetMatrix(int i, int j)

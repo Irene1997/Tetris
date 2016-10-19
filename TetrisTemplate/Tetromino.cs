@@ -28,12 +28,15 @@ class Tetromino
                 blockPosition.Y--;
                 /*place tetromino in matrix and place next tetromino*/
                 PlaceBlock(grid);
+                gameWorld.AddScore(10);
                 gameWorld.RandomBlock();
-                for(int i = 19; i < 0; i--)
+                for(int i = 19; i >= 0; i--)
                 {
                     if (grid.RowFull(i))
                     {
                         //delete the row and move every row above one down
+                        grid.EmptyRow(i);
+                        gameWorld.AddScore(100);
                         i++;
                     }
                 }
