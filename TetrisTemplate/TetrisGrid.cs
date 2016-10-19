@@ -29,9 +29,6 @@ class TetrisGrid
     /* width of sprite for offset */
     float offset;
 
-    string[] tetrom = new string[7] { "J", "L", "O", "T", "I", "Z", "S" };
-    string nowTetrom, nextTetrom = "J";
-
     /*width in terms of grid elements */
     public int Width
     {
@@ -59,7 +56,6 @@ class TetrisGrid
             {
                 matrix[i, j] = Color.White;
             }
-            j = 0;
         }
 
         
@@ -78,15 +74,8 @@ class TetrisGrid
         return true;
     }
 
-    public string RandomBlock()
+   public void EmptyRow()
     {
-        //this is how we will display the block on the side.
-
-        nowTetrom = nextTetrom;
-        return nowTetrom;
-
-        //make random number from 0-6
-        //nextTetrom = tetrom[random.Next(7)];
 
     }
 
@@ -120,7 +109,6 @@ class TetrisGrid
     
         for (i = 0; i < 12; i++)
         {
-            j = 0;
             position.X = i * offset;
             for (j = 0; j < 20; j++)
             {

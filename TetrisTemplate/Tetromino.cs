@@ -17,23 +17,24 @@ class Tetromino
     public double LastPressedDown;
     int angle; //0 = up, 1 = right, 2 = down, 3 = left
 
-    public void Update(GameTime gameTime, TetrisGrid grid, InputHelper inputHelper)
+    public void Update(GameTime gameTime, TetrisGrid grid, GameWorld gameWorld, InputHelper inputHelper)
     {
         if (inputHelper.KeyPressed(Keys.Down) || inputHelper.KeyPressed(Keys.S) || LastPressedDown >= 300.0)
         {
             blockPosition.Y++;
             LastPressedDown = 0;
-            if(!canPlace(grid))
+            if(!CanPlace(grid))
             {
                 blockPosition.Y--;
                 /*place tetromino in matrix and place next tetromino*/
                 PlaceBlock(grid);
-                grid.RandomBlock();
-                for(int i = 0; i < 20; i++)
+                gameWorld.RandomBlock();
+                for(int i = 19; i < 0; i--)
                 {
                     if (grid.RowFull(i))
                     {
                         //delete the row and move every row above one down
+                        i++;
                     }
                 }
             }
@@ -42,26 +43,26 @@ class Tetromino
 
         if (inputHelper.KeyPressed(Keys.Up) || inputHelper.KeyPressed(Keys.E))
         {
-            turnRight();
-            if(!canPlace(grid))
+            TurnRight();
+            if(!CanPlace(grid))
             {
-                turnLeft();
+                TurnLeft();
             }
         }
 
         if (inputHelper.KeyPressed(Keys.RightShift) || inputHelper.KeyPressed(Keys.Q))
         {
-            turnLeft();
-            if (!canPlace(grid))
+            TurnLeft();
+            if (!CanPlace(grid))
             {
-                turnRight();
+                TurnRight();
             }
         }
 
         if (inputHelper.KeyPressed(Keys.Left) || inputHelper.KeyPressed(Keys.A))
         {
             blockPosition.X--;
-            if (!canPlace(grid))
+            if (!CanPlace(grid))
             {
                 blockPosition.X++;
             }
@@ -70,7 +71,7 @@ class Tetromino
         if (inputHelper.KeyPressed(Keys.Right) || inputHelper.KeyPressed(Keys.D))
         {
             blockPosition.X++;
-            if (!canPlace(grid))
+            if (!CanPlace(grid))
             {
                 blockPosition.X--;
             }
@@ -103,11 +104,10 @@ class Tetromino
                     grid.SetBlock(x, y, GetBlock(i, j));
                 }
             }
-            j = 0;
         }
     }
 
-    public void turnLeft()
+    public void TurnLeft()
     {
         if (angle == 0)
         {
@@ -131,7 +131,7 @@ class Tetromino
         }
     }
 
-    public void turnRight()
+    public void TurnRight()
     {
         if (angle == 0)
         {
@@ -155,7 +155,7 @@ class Tetromino
         }
     }
 
-    public bool canPlace(TetrisGrid grid)
+    public bool CanPlace(TetrisGrid grid)
     {
         int i, j;
         for (i = 0; i < 4; i++)
@@ -167,7 +167,6 @@ class Tetromino
                     return false;
                 }
             }
-            j = 0;
         }
         return true;
     }
@@ -191,7 +190,6 @@ class Tetromino
                     s.Draw(gridblock, position, null, block[i, j], 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
                 }
             }
-            j = 0;
         }
 
     }
@@ -211,7 +209,6 @@ class Tetromino
             {
                 block[i, j] = Color.White;
             }
-            j = 0;
         }
     }
 

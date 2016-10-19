@@ -29,6 +29,7 @@ class GameWorld
     TetrisGrid grid;
 
     Tetromino tetromino;
+    string nowTetrom, nextTetrom;
 
     InputHelper inputhelper;
     
@@ -46,15 +47,54 @@ class GameWorld
         grid = new TetrisGrid(block);
         inputhelper = new InputHelper();
         bPosition = new Vector2(4, -1);
-
-        //tetromino = new grid.RandomBlock()(bPosition);
-        tetromino = new S(bPosition);
+        RandomBlock();
+        
     }
 
    
 
     public void Reset()
     {
+    }
+
+    public void RandomBlock()
+    {
+        //this is how we will display the block on the side.
+
+        nowTetrom = nextTetrom;
+
+        //make random number from 0-6
+        //nextTetrom = tetrom[random.Next(7)];
+ 
+        switch (random.Next(7))
+        {
+            case 0:
+                tetromino = new J(bPosition);
+                break;
+            case 1:
+                tetromino = new L(bPosition);
+                break;
+            case 2:
+                tetromino = new O(bPosition);
+                break;
+            case 3:
+                tetromino = new T(bPosition);
+                break;
+            case 4:
+                tetromino = new I(bPosition);
+                break;
+            case 5:
+                tetromino = new Z(bPosition);
+                break;
+            case 6:
+                tetromino = new S(bPosition);
+                break;
+            default:
+                tetromino = new S(bPosition);
+                break;
+        }
+
+      
     }
 
     public void HandleInput(GameTime gameTime, InputHelper inputHelper)
@@ -64,7 +104,7 @@ class GameWorld
 
     public void Update(GameTime gameTime, InputHelper inputHelper)
     {
-        tetromino.Update(gameTime, grid, inputHelper);
+        tetromino.Update(gameTime, grid, this, inputHelper);
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -72,7 +112,7 @@ class GameWorld
         spriteBatch.Begin();
         grid.Draw(gameTime, spriteBatch);
         tetromino.Draw(gameTime, spriteBatch, block, grid);
-        DrawText("Hello! It's me", Vector2.Zero, spriteBatch);
+        DrawText("Hello! It's me", new Vector2(400,0), spriteBatch);
         spriteBatch.End();    
     }
 
