@@ -5,11 +5,10 @@ using Microsoft.Xna.Framework.Input;
 
 class Tetromino
 {
-    Vector2 blockPosition;
-    public Tetromino(Vector2 bPosition)
+    public Vector2 blockPosition = new Vector2(4, -1);
+    public Tetromino()
     {
         angle = 0;
-        blockPosition = bPosition;
     }
 
     public Color[,] block = new Color[4, 4];
@@ -17,6 +16,7 @@ class Tetromino
     public double LastPressedDown;
     int angle; //0 = up, 1 = right, 2 = down, 3 = left
 
+  
     public void Update(GameTime gameTime, TetrisGrid grid, GameWorld gameWorld, InputHelper inputHelper)
     {
         if (inputHelper.KeyPressed(Keys.Down) || inputHelper.KeyPressed(Keys.S) || LastPressedDown >= 300.0)
@@ -178,23 +178,24 @@ class Tetromino
     {
         float offset = gridblock.Width;
         Vector2 position = new Vector2(0, 0);
-
-        int i, j;
-        for (i = 0; i < 4; i++)
+        if (this is nowTetrom())
         {
-            for (j = 0; j < 4; j++)
+            int i, j;
+            for (i = 0; i < 4; i++)
             {
-                int x = (int)blockPosition.X + i;
-                int y = (int)blockPosition.Y + j;
-                if (block[i, j] != Color.White && x >= 0 && y >= 0)
+                for (j = 0; j < 4; j++)
                 {
-                    position.X = x * offset;
-                    position.Y = y * offset;
-                    s.Draw(gridblock, position, null, block[i, j], 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+                    int x = (int)blockPosition.X + i;
+                    int y = (int)blockPosition.Y + j;
+                    if (block[i, j] != Color.White && x >= 0 && y >= 0)
+                    {
+                        position.X = x * offset;
+                        position.Y = y * offset;
+                        s.Draw(gridblock, position, null, block[i, j], 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+                    }
                 }
             }
         }
-
     }
     
     public virtual void Up() { }

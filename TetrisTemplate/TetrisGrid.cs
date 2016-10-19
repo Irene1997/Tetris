@@ -29,6 +29,7 @@ class TetrisGrid
     /* width of sprite for offset */
     float offset;
 
+
     /*width in terms of grid elements */
     public int Width
     {
@@ -104,6 +105,7 @@ class TetrisGrid
             matrix[x, y] = color;
         }
     }
+
 
     /*
      * draws the grid on the screen

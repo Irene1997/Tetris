@@ -22,15 +22,14 @@ class GameWorld
     SpriteFont font;
 
     Texture2D block;
-    Vector2 bPosition;
+    Vector2 aPosition, bPosition;
 
     GameState gameState;
     int score = 0;
 
-    TetrisGrid grid;
+    Tetromino nowTetrom, nextTetrom;
 
-    Tetromino tetromino;
-    string nowTetrom, nextTetrom;
+    TetrisGrid grid;
 
     InputHelper inputhelper;
     
@@ -47,15 +46,10 @@ class GameWorld
         font = Content.Load<SpriteFont>("SpelFont");
         grid = new TetrisGrid(block);
         inputhelper = new InputHelper();
-        bPosition = new Vector2(4, -1);
+        aPosition = new Vector2(400, 50);
+       // bPosition = new Vector2(4, -1);
         RandomBlock();
         
-    }
-
-   
-
-    public void Reset()
-    {
     }
 
     public void RandomBlock()
@@ -63,40 +57,43 @@ class GameWorld
         //this is how we will display the block on the side.
 
         nowTetrom = nextTetrom;
-
+        nowTetrom.blockPosition = new Vector2();
         //make random number from 0-6
-        //nextTetrom = tetrom[random.Next(7)];
- 
+
         switch (random.Next(7))
         {
             case 0:
-                tetromino = new J(bPosition);
+                nextTetrom = new J();
                 break;
             case 1:
-                tetromino = new L(bPosition);
+                nextTetrom = new L();
                 break;
             case 2:
-                tetromino = new O(bPosition);
+                nextTetrom = new O();
                 break;
             case 3:
-                tetromino = new T(bPosition);
+                nextTetrom = new T();
                 break;
             case 4:
-                tetromino = new I(bPosition);
+                nextTetrom = new I();
                 break;
             case 5:
-                tetromino = new Z(bPosition);
+                nextTetrom = new Z();
                 break;
             case 6:
-                tetromino = new S(bPosition);
+                nextTetrom = new S();
                 break;
             default:
-                tetromino = new S(bPosition);
+                nextTetrom = new S();
                 break;
         }
-
-      
     }
+
+    public void Reset()
+    {
+    }
+
+   
 
     public void AddScore(int add)
     {
@@ -110,14 +107,14 @@ class GameWorld
 
     public void Update(GameTime gameTime, InputHelper inputHelper)
     {
-        tetromino.Update(gameTime, grid, this, inputHelper);
+        nextTetrom.Update(gameTime, grid, this, inputHelper);
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         spriteBatch.Begin();
         grid.Draw(gameTime, spriteBatch);
-        tetromino.Draw(gameTime, spriteBatch, block, grid);
+        nextTetrom.Draw(gameTime, spriteBatch, block, grid);
         DrawText("Hello! It's me", new Vector2(400,0), spriteBatch);
         DrawText("Score: " + score, new Vector2(400, 30), spriteBatch);
         spriteBatch.End();    
