@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 class Tetromino
 {
-    public Vector2 blockPosition;
+    public Vector2 blockPosition = new Vector2(13, 2);
     bool active = false;
 
     public Tetromino()
@@ -18,74 +18,78 @@ class Tetromino
     public double LastPressedDown;
     int angle; //0 = up, 1 = right, 2 = down, 3 = left
 
-    public void Side()
+    public void Activate()
     {
         if (!active)
         {
             active = true;
+            blockPosition = new Vector2(4, -1);
         }
     }
 
     public void Update(GameTime gameTime, TetrisGrid grid, GameWorld gameWorld, InputHelper inputHelper)
     {
-        if (inputHelper.KeyPressed(Keys.Down) || inputHelper.KeyPressed(Keys.S) || LastPressedDown >= 300.0)
+        if (active)
         {
-            blockPosition.Y++;
-            LastPressedDown = 0;
-            if(!CanPlace(grid))
+            if (inputHelper.KeyPressed(Keys.Down) || inputHelper.KeyPressed(Keys.S) || LastPressedDown >= 300.0)
             {
-                blockPosition.Y--;
-                /*place tetromino in matrix and place next tetromino*/
-                PlaceBlock(grid);
-                gameWorld.AddScore(10);
-                gameWorld.RandomBlock();
-                for(int i = 19; i >= 0; i--)
+                blockPosition.Y++;
+                LastPressedDown = 0;
+                if (!CanPlace(grid))
                 {
-                    if (grid.RowFull(i))
+                    blockPosition.Y--;
+                    /*place tetromino in matrix and place next tetromino*/
+                    PlaceBlock(grid);
+                    gameWorld.AddScore(10);
+                    gameWorld.RandomBlock();
+                    for (int i = 19; i >= 0; i--)
                     {
-                        //delete the row and move every row above one down
-                        grid.EmptyRow(i);
-                        gameWorld.AddScore(100);
-                        i++;
+                        if (grid.RowFull(i))
+                        {
+                            //delete the row and move every row above one down
+                            grid.EmptyRow(i);
+                            gameWorld.AddScore(100);
+                            i++;
+                        }
                     }
                 }
             }
-        }
-        LastPressedDown += gameTime.ElapsedGameTime.TotalMilliseconds;
+            LastPressedDown += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-        if (inputHelper.KeyPressed(Keys.Up) || inputHelper.KeyPressed(Keys.E))
-        {
-            TurnRight();
-            if(!CanPlace(grid))
-            {
-                TurnLeft();
-            }
-        }
-
-        if (inputHelper.KeyPressed(Keys.RightShift) || inputHelper.KeyPressed(Keys.Q))
-        {
-            TurnLeft();
-            if (!CanPlace(grid))
+            if (inputHelper.KeyPressed(Keys.Up) || inputHelper.KeyPressed(Keys.E))
             {
                 TurnRight();
+                if (!CanPlace(grid))
+                {
+                    TurnLeft();
+                }
             }
-        }
 
-        if (inputHelper.KeyPressed(Keys.Left) || inputHelper.KeyPressed(Keys.A))
-        {
-            blockPosition.X--;
-            if (!CanPlace(grid))
+            if (inputHelper.KeyPressed(Keys.RightShift) || inputHelper.KeyPressed(Keys.Q))
             {
-                blockPosition.X++;
+                TurnLeft();
+                if (!CanPlace(grid))
+                {
+                    TurnRight();
+                }
             }
-        }
 
-        if (inputHelper.KeyPressed(Keys.Right) || inputHelper.KeyPressed(Keys.D))
-        {
-            blockPosition.X++;
-            if (!CanPlace(grid))
+            if (inputHelper.KeyPressed(Keys.Left) || inputHelper.KeyPressed(Keys.A))
             {
                 blockPosition.X--;
+                if (!CanPlace(grid))
+                {
+                    blockPosition.X++;
+                }
+            }
+
+            if (inputHelper.KeyPressed(Keys.Right) || inputHelper.KeyPressed(Keys.D))
+            {
+                blockPosition.X++;
+                if (!CanPlace(grid))
+                {
+                    blockPosition.X--;
+                }
             }
         }
     }
@@ -187,14 +191,7 @@ class Tetromino
     {
         float offset = gridblock.Width;
         Vector2 position = new Vector2(0, 0);
-        if (active)
-        {
-            blockPosition = new Vector2(4, -1);
-        }
-        else
-        {
-            blockPosition = new Vector2(7, 2);
-        }
+        
 
         int i, j;
         for (i = 0; i < 4; i++)

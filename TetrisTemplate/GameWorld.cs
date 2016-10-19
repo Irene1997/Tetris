@@ -22,7 +22,6 @@ class GameWorld
     SpriteFont font;
 
     Texture2D block;
-    Vector2 aPosition, bPosition;
 
     GameState gameState;
     int score = 0;
@@ -46,10 +45,8 @@ class GameWorld
         font = Content.Load<SpriteFont>("SpelFont");
         grid = new TetrisGrid(block);
         inputhelper = new InputHelper();
-        aPosition = new Vector2(400, 50);
-       // bPosition = new Vector2(4, -1);
+       // RandomBlock();
         RandomBlock();
-        
     }
 
     public void RandomBlock()
@@ -57,7 +54,7 @@ class GameWorld
         //this is how we will display the block on the side.
 
         nowTetrom = nextTetrom;
-        nowTetrom.blockPosition = new Vector2();
+        
         //make random number from 0-6
 
         switch (random.Next(7))
@@ -87,6 +84,15 @@ class GameWorld
                 nextTetrom = new S();
                 break;
         }
+
+        if(nowTetrom == null)
+        {
+            RandomBlock();
+        }
+        else
+        {
+            nowTetrom.Activate();
+        }
     }
 
     public void Reset()
@@ -108,6 +114,7 @@ class GameWorld
     public void Update(GameTime gameTime, InputHelper inputHelper)
     {
         nextTetrom.Update(gameTime, grid, this, inputHelper);
+        nowTetrom.Update(gameTime, grid, this, inputHelper);
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -115,6 +122,7 @@ class GameWorld
         spriteBatch.Begin();
         grid.Draw(gameTime, spriteBatch);
         nextTetrom.Draw(gameTime, spriteBatch, block, grid);
+        nowTetrom.Draw(gameTime, spriteBatch, block, grid);
         DrawText("Hello! It's me", new Vector2(400,0), spriteBatch);
         DrawText("Score: " + score, new Vector2(400, 30), spriteBatch);
         spriteBatch.End();    
