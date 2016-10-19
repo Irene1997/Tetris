@@ -5,7 +5,9 @@ using Microsoft.Xna.Framework.Input;
 
 class Tetromino
 {
-    public Vector2 blockPosition = new Vector2(4, -1);
+    public Vector2 blockPosition;
+    bool active = false;
+
     public Tetromino()
     {
         angle = 0;
@@ -16,7 +18,14 @@ class Tetromino
     public double LastPressedDown;
     int angle; //0 = up, 1 = right, 2 = down, 3 = left
 
-  
+    public void Side()
+    {
+        if (!active)
+        {
+            active = true;
+        }
+    }
+
     public void Update(GameTime gameTime, TetrisGrid grid, GameWorld gameWorld, InputHelper inputHelper)
     {
         if (inputHelper.KeyPressed(Keys.Down) || inputHelper.KeyPressed(Keys.S) || LastPressedDown >= 300.0)
@@ -178,24 +187,31 @@ class Tetromino
     {
         float offset = gridblock.Width;
         Vector2 position = new Vector2(0, 0);
-        if (this is nowTetrom())
+        if (active)
         {
-            int i, j;
-            for (i = 0; i < 4; i++)
+            blockPosition = new Vector2(4, -1);
+        }
+        else
+        {
+            blockPosition = new Vector2(7, 2);
+        }
+
+        int i, j;
+        for (i = 0; i < 4; i++)
+        {
+            for (j = 0; j < 4; j++)
             {
-                for (j = 0; j < 4; j++)
+                int x = (int)blockPosition.X + i;
+                int y = (int)blockPosition.Y + j;
+                if (block[i, j] != Color.White && x >= 0 && y >= 0)
                 {
-                    int x = (int)blockPosition.X + i;
-                    int y = (int)blockPosition.Y + j;
-                    if (block[i, j] != Color.White && x >= 0 && y >= 0)
-                    {
-                        position.X = x * offset;
-                        position.Y = y * offset;
-                        s.Draw(gridblock, position, null, block[i, j], 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
-                    }
+                    position.X = x * offset;
+                    position.Y = y * offset;
+                    s.Draw(gridblock, position, null, block[i, j], 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
                 }
             }
         }
+        
     }
     
     public virtual void Up() { }
