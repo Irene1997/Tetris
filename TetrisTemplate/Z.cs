@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 class Z : Tetromino
 {
-    public Z(Vector2 bPosition) : base(bPosition)
+    public Z() : base()
     {
         blockColor = Color.Red;
         Up();
