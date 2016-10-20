@@ -23,7 +23,7 @@ class GameWorld
 
     Texture2D block;
 
-    GameState gameState;
+    GameState gameState = GameState.GameOver;
     int score = 0;
 
     Tetromino nowTetrom, nextTetrom;
@@ -39,14 +39,16 @@ class GameWorld
         screenWidth = width;
         screenHeight = height;
         random = new Random();
-        gameState = GameState.Playing;
 
-        block = Content.Load<Texture2D>("block");
+      //  gameState = GameState.GameOver;
+
+        //try Block2, block, blockk and Block3
+        block = Content.Load<Texture2D>("Blockk");
         font = Content.Load<SpriteFont>("SpelFont");
         grid = new TetrisGrid(block);
         inputhelper = new InputHelper();
-       // RandomBlock();
         RandomBlock();
+        
     }
 
     public void RandomBlock()
@@ -108,23 +110,44 @@ class GameWorld
 
     public void HandleInput(GameTime gameTime, InputHelper inputHelper)
     {
-
+        if (inputHelper.KeyPressed(Keys.Space) && gameState == GameState.GameOver){
+            gameState = GameState.Playing;
+        }
     }
 
     public void Update(GameTime gameTime, InputHelper inputHelper)
     {
-        nextTetrom.Update(gameTime, grid, this, inputHelper);
-        nowTetrom.Update(gameTime, grid, this, inputHelper);
+        if (gameState == GameState.Playing)
+        {
+            nextTetrom.Update(gameTime, grid, this, inputHelper);
+            nowTetrom.Update(gameTime, grid, this, inputHelper);
+        }
+        HandleInput(gameTime, inputHelper);
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         spriteBatch.Begin();
         grid.Draw(gameTime, spriteBatch);
-        nextTetrom.Draw(gameTime, spriteBatch, block, grid);
-        nowTetrom.Draw(gameTime, spriteBatch, block, grid);
-        DrawText("Hello! It's me", new Vector2(400,0), spriteBatch);
-        DrawText("Score: " + score, new Vector2(400, 30), spriteBatch);
+
+        if (gameState == GameState.Playing)
+        {
+            DrawText("Hello! It's me", new Vector2(400, 0), spriteBatch);
+            DrawText("Score: " + score, new Vector2(400, 30), spriteBatch);
+            nextTetrom.Draw(gameTime, spriteBatch, block, grid);
+            nowTetrom.Draw(gameTime, spriteBatch, block, grid);
+        }
+        else
+        {
+            DrawText("Welkom to Tetris", new Vector2(400, 0), spriteBatch);
+            DrawText("the basic controllers are: ", new Vector2(400, 30), spriteBatch);
+            DrawText("left: move to the left", new Vector2(400, 50), spriteBatch);
+            DrawText("right: move to the right", new Vector2(400, 70), spriteBatch);
+            DrawText("down: move down", new Vector2(400, 90), spriteBatch);
+            DrawText("up: turn to the left", new Vector2(400, 110), spriteBatch);
+            DrawText("shift: turn to the right", new Vector2(400, 130), spriteBatch);
+        }
+
         spriteBatch.End();    
     }
 
