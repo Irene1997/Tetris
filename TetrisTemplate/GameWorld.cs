@@ -32,7 +32,7 @@ class GameWorld
 
     SpriteFont font;
 
-    Texture2D block;
+    Texture2D block, logo;
 
     GameState gameState = GameState.StartUp;
     int score = 0;
@@ -57,6 +57,7 @@ class GameWorld
 
         block = Content.Load<Texture2D>("Blockk");
         font = Content.Load<SpriteFont>("Font");
+        logo = Content.Load<Texture2D>("KeizerPinguin");
         placed = Content.Load<SoundEffect>("placed");
         lineCleared = Content.Load<SoundEffect>("linecleared");
         song = Content.Load<Song>("song");
@@ -182,6 +183,7 @@ class GameWorld
             DrawText("Hello! It's Tetris!!", new Vector2(400, 30), spriteBatch);
             DrawText("Score: " + GetScore(), new Vector2(400, 90), spriteBatch);
             DrawText("Next:", new Vector2(400, 120), spriteBatch);
+            spriteBatch.Draw(logo, new Vector2(400, 400), Color.White); 
             nextTetrom.Draw(gameTime, spriteBatch, block, grid);
             nowTetrom.Draw(gameTime, spriteBatch, block, grid);
         }
