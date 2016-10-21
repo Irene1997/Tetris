@@ -71,6 +71,8 @@ class Menu
             s.DrawString(largefont, "Game Over", new Vector2(250, 50), Color.Black);
             DrawText("Score: " + gameWorld.GetScore(), new Vector2(300, 150), s);
             DrawText("Press Play to try again", new Vector2(265, 230), s);
+           // s.Draw(logo, new Vector2(685, 450), null, Color.White, 0.0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
+            //s.DrawString(smallfont, "Pinguin Producions", new Vector2(670, 570), Color.Black);
         }
         s.Draw(button, new Vector2(330, 320), null, Color.White, 0.0f, Vector2.Zero, 2.0f, SpriteEffects.None, 0);
         DrawText("Play", new Vector2(338, 335), s);

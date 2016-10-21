@@ -30,7 +30,7 @@ class GameWorld
 
     Random random;
 
-    SpriteFont font;
+    SpriteFont font, smallfont;
 
     Texture2D block, logo;
 
@@ -57,10 +57,13 @@ class GameWorld
 
         block = Content.Load<Texture2D>("Blockk");
         font = Content.Load<SpriteFont>("Font");
+        smallfont = Content.Load<SpriteFont>("SmallFont");
         logo = Content.Load<Texture2D>("KeizerPinguin");
         placed = Content.Load<SoundEffect>("placed");
         lineCleared = Content.Load<SoundEffect>("linecleared");
         song = Content.Load<Song>("song");
+
+        MediaPlayer.Volume = 0.5f;
         MediaPlayer.IsRepeating = true;
         MediaPlayer.Play(song);
 
@@ -177,13 +180,17 @@ class GameWorld
         spriteBatch.Begin();
         grid.Draw(gameTime, spriteBatch);
         Vector2 drawPostionLine = new Vector2(360, 0);
+        spriteBatch.Draw(logo, new Vector2(685, 450), null, Color.White, 0.0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
+        spriteBatch.DrawString(smallfont, "Pinguin Producions", new Vector2(670, 570), Color.Black);
 
         if (gameState == GameState.Playing)
         {
             DrawText("Hello! It's Tetris!!", new Vector2(400, 30), spriteBatch);
             DrawText("Score: " + GetScore(), new Vector2(400, 90), spriteBatch);
             DrawText("Next:", new Vector2(400, 120), spriteBatch);
-            spriteBatch.Draw(logo, new Vector2(400, 400), Color.White); 
+            spriteBatch.Draw(logo, new Vector2(685, 450), null, Color.White, 0.0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
+            spriteBatch.DrawString(smallfont, "Pinguin Producions", new Vector2(670, 570), Color.Black);
+
             nextTetrom.Draw(gameTime, spriteBatch, block, grid);
             nowTetrom.Draw(gameTime, spriteBatch, block, grid);
         }

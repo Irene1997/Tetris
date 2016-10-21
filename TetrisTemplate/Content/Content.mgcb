@@ -151,3 +151,9 @@
 /processorParam:TextureFormat=Color
 /build:KeizerPinguin.png
 
+#begin SmallFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:SmallFont.spritefont
+
