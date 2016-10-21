@@ -31,7 +31,7 @@ class Tetromino
     {
         if (active)
         {
-            if (inputHelper.KeyPressed(Keys.Down) || inputHelper.KeyPressed(Keys.S) || LastPressedDown >= 300.0)
+            if (inputHelper.KeyPressed(Keys.Down) || inputHelper.KeyPressed(Keys.S)/* || LastPressedDown >= 300.0*/)
             {
                 blockPosition.Y++;
                 LastPressedDown = 0;

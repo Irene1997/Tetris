@@ -29,7 +29,6 @@ class O : Tetromino
         Up();
     }
 
-
     public override void Left()
     {
         Up();
