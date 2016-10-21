@@ -11,7 +11,7 @@ class GameWorld
 
     enum GameState
     {
-        Playing, GameOver
+        Playing, GameOver, StartUp
     }
 
 
@@ -21,7 +21,7 @@ class GameWorld
 
     SpriteFont font;
 
-    Texture2D block;
+    Texture2D block, menu;
 
     GameState gameState = GameState.GameOver;
     int score = 0;
@@ -40,10 +40,8 @@ class GameWorld
         screenHeight = height;
         random = new Random();
 
-      //  gameState = GameState.GameOver;
-
-        //try Block2, block, blockk and Block3
         block = Content.Load<Texture2D>("Blockk");
+        menu = Content.Load<Texture2D>("Menu");
         font = Content.Load<SpriteFont>("SpelFont");
         grid = new TetrisGrid(block);
         inputhelper = new InputHelper();
@@ -129,6 +127,7 @@ class GameWorld
     {
         spriteBatch.Begin();
         grid.Draw(gameTime, spriteBatch);
+        Vector2 drawPostionLine = new Vector2(360, 0);
 
         if (gameState == GameState.Playing)
         {
@@ -139,6 +138,7 @@ class GameWorld
         }
         else
         {
+            spriteBatch.Draw(menu, Vector2.Zero, Color.White);
             DrawText("Welkom to Tetris", new Vector2(400, 0), spriteBatch);
             DrawText("the basic controllers are: ", new Vector2(400, 30), spriteBatch);
             DrawText("left: move to the left", new Vector2(400, 50), spriteBatch);
