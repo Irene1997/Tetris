@@ -20,6 +20,11 @@ class GameWorld
         gameState = GameState.GameOver;
     }
 
+    public GameState GetGameState()
+    {
+        return gameState;
+    }
+
     int screenWidth, screenHeight;
 
     Random random;
@@ -130,7 +135,6 @@ class GameWorld
     {
     }
 
-   
 
     public void AddScore(int add)
     {
@@ -146,10 +150,13 @@ class GameWorld
     {
         if (menu.ButtonPressed(inputHelper) && (gameState == GameState.GameOver || gameState == GameState.StartUp))
         {
+            if (gameState == GameState.GameOver)
+            {
+                grid.Clear();
+            }
             gameState = GameState.Playing;
         }
     }
-
     public void Update(GameTime gameTime, InputHelper inputHelper)
     {
         if (gameState == GameState.Playing)
@@ -175,7 +182,7 @@ class GameWorld
         }
         else
         {
-            menu.Draw(gameTime, gameState, spriteBatch);
+            menu.Draw(gameTime, this, spriteBatch);
         }
 
         spriteBatch.End();    

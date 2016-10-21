@@ -19,7 +19,7 @@ class Menu
         right = Content.Load<Texture2D>("Right");
         down = Content.Load<Texture2D>("Down");
     }
-    enum GameState    {Playing, GameOver, StartUp}
+    //enum GameState    {Playing, GameOver, StartUp}
     Texture2D menuback, keyboard, button; 
     Texture2D turnRight, turnLeft, left, right, down;
     SpriteFont textfont;
@@ -39,11 +39,11 @@ class Menu
     }
 
     /*draws the menu on the screen*/
-    public void Draw(GameTime gameTime, GameState gameState, SpriteBatch s)
+    public void Draw(GameTime gameTime, GameWorld gameWorld, SpriteBatch s)
     {
         s.Draw(menuback, Vector2.Zero, Color.White);
 
-        if(gameState == GameState.StartUp)
+        if(gameWorld.GetGameState() == GameWorld.GameState.StartUp)
         { 
             DrawText("Welkom to Tetris", new Vector2(290, 0), s);
             DrawText("The basic controls are: ", new Vector2(265, 30), s);
@@ -67,8 +67,8 @@ class Menu
         }
         else
         {
-            DrawText("Game Over", new Vector2(290, 0), s);
-            DrawText("The basic controls are: ", new Vector2(265, 30), s);
+            DrawText("Game Over", new Vector2(300, 50), s);
+            DrawText("The basic controls are: ", new Vector2(265, 80), s);
         }
         s.Draw(button, new Vector2(330, 320), null, Color.White, 0.0f, Vector2.Zero, 2.0f, SpriteEffects.None, 0);
         DrawText("Play", new Vector2(340, 340), s);
