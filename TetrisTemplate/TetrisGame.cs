@@ -19,7 +19,8 @@ class TetrisGame : Game
     {        
         // initialize the graphics device
         GraphicsDeviceManager graphics = new GraphicsDeviceManager(this);
-        
+        this.IsMouseVisible = true;
+
         // set the directory where game assets are located
         this.Content.RootDirectory = "Content";
         

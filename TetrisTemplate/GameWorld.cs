@@ -10,7 +10,7 @@ using System;
 class GameWorld
 {
 
-    enum GameState
+    public enum GameState
     {
         Playing, GameOver, StartUp
     }
@@ -26,14 +26,16 @@ class GameWorld
 
     SpriteFont font;
 
-    Texture2D block, menu;
+    Texture2D block;
 
-    GameState gameState = GameState.GameOver;
+    GameState gameState = GameState.StartUp;
     int score = 0;
 
     Tetromino nowTetrom, nextTetrom;
 
     TetrisGrid grid;
+
+    Menu menu;
 
     InputHelper inputhelper;
 
@@ -48,12 +50,13 @@ class GameWorld
         random = new Random();
 
         block = Content.Load<Texture2D>("Blockk");
-        menu = Content.Load<Texture2D>("Menu");
         font = Content.Load<SpriteFont>("SpelFont");
         placed = Content.Load<SoundEffect>("placed");
         lineCleared = Content.Load<SoundEffect>("linecleared");
         grid = new TetrisGrid(block);
         inputhelper = new InputHelper();
+        menu = new Menu(Content, block, font);
+        
         RandomBlock();
 
 
@@ -141,7 +144,8 @@ class GameWorld
 
     public void HandleInput(GameTime gameTime, InputHelper inputHelper)
     {
-        if (inputHelper.KeyPressed(Keys.Space) && gameState == GameState.GameOver){
+        if (menu.ButtonPressed(inputHelper) && (gameState == GameState.GameOver || gameState == GameState.StartUp))
+        {
             gameState = GameState.Playing;
         }
     }
@@ -171,14 +175,7 @@ class GameWorld
         }
         else
         {
-            spriteBatch.Draw(menu, Vector2.Zero, Color.White);
-            DrawText("Welkom to Tetris", new Vector2(400, 0), spriteBatch);
-            DrawText("the basic controllers are: ", new Vector2(400, 30), spriteBatch);
-            DrawText("left: move to the left", new Vector2(400, 50), spriteBatch);
-            DrawText("right: move to the right", new Vector2(400, 70), spriteBatch);
-            DrawText("down: move down", new Vector2(400, 90), spriteBatch);
-            DrawText("up: turn to the left", new Vector2(400, 110), spriteBatch);
-            DrawText("shift: turn to the right", new Vector2(400, 130), spriteBatch);
+            menu.Draw(gameTime, gameState, spriteBatch);
         }
 
         spriteBatch.End();    
@@ -189,7 +186,7 @@ class GameWorld
      */
     public void DrawText(string text, Vector2 positie, SpriteBatch spriteBatch)
     {
-        spriteBatch.DrawString(font, text, positie, Color.Blue);
+        spriteBatch.DrawString(font, text, positie, Color.Black);
     }
 
     public Random Random
