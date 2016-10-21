@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System.Media;
 using System;
 
@@ -45,8 +46,8 @@ class GameWorld
     InputHelper inputhelper;
 
     SoundEffect placed, lineCleared;
-    
-    
+
+    Song song;
 
     public GameWorld(int width, int height, ContentManager Content)
     {
@@ -58,6 +59,10 @@ class GameWorld
         font = Content.Load<SpriteFont>("SpelFont");
         placed = Content.Load<SoundEffect>("placed");
         lineCleared = Content.Load<SoundEffect>("linecleared");
+        song = Content.Load<Song>("song");
+        MediaPlayer.IsRepeating = true;
+        MediaPlayer.Play(song);
+
         grid = new TetrisGrid(block);
         inputhelper = new InputHelper();
         menu = new Menu(Content, block, font);
