@@ -68,7 +68,8 @@ class Menu
         else
         {
             DrawText("Game Over", new Vector2(300, 50), s);
-            DrawText("The basic controls are: ", new Vector2(265, 80), s);
+            DrawText("Score: " + gameWorld.GetScore(), new Vector2(300, 100), s);
+            DrawText("Press Play to try again", new Vector2(265, 180), s);
         }
         s.Draw(button, new Vector2(330, 320), null, Color.White, 0.0f, Vector2.Zero, 2.0f, SpriteEffects.None, 0);
         DrawText("Play", new Vector2(340, 340), s);

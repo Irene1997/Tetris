@@ -158,6 +158,7 @@ class GameWorld
             if (gameState == GameState.GameOver)
             {
                 grid.Clear();
+                score = 0;
             }
             gameState = GameState.Playing;
         }
