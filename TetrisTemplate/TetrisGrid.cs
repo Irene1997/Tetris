@@ -81,7 +81,6 @@ class TetrisGrid
             for (int x = 0; x < 12; x++)
             {
                 matrix[x, i] = GetMatrix(x, i - 1);
-                //matrix[x, i] = matrix[x, i - 1];
             }
         }
     }
@@ -92,9 +91,13 @@ class TetrisGrid
         {
             return matrix[i, j];
         }
-        else
+        else if(i > 11 || i < 0 || j > 19)
         {
             return new Color(0, 204, 0);
+        }
+        else
+        {
+            return Color.White;
         }
     }
 

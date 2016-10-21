@@ -43,3 +43,21 @@
 /processorParam:TextureFormat=Color
 /build:Menu.png
 
+#begin song.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:song.wav
+
+#begin placed
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:placed
+
+#begin linecleared
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:linecleared
+

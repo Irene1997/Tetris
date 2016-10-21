@@ -7,10 +7,12 @@ class Tetromino
 {
     public Vector2 blockPosition = new Vector2(13, 2);
     bool active = false;
+    public double fallDelay;
 
     public Tetromino()
     {
         angle = 0;
+        fallDelay = 300;
     }
 
     public Color[,] block = new Color[4, 4];
@@ -31,7 +33,8 @@ class Tetromino
     {
         if (active)
         {
-            if (inputHelper.KeyPressed(Keys.Down) || inputHelper.KeyPressed(Keys.S)/* || LastPressedDown >= 300.0*/)
+            fallDelay = 300f / Math.Pow(2.0f, gameWorld.GetScore() / 2000f);
+            if (inputHelper.KeyPressed(Keys.Down) || inputHelper.KeyPressed(Keys.S) || LastPressedDown >= fallDelay)
             {
                 blockPosition.Y++;
                 LastPressedDown = 0;
@@ -42,6 +45,7 @@ class Tetromino
                     PlaceBlock(grid);
                     gameWorld.AddScore(10);
                     gameWorld.RandomBlock();
+                    gameWorld.PlayPlaced();
                     for (int i = 19; i >= 0; i--)
                     {
                         if (grid.RowFull(i))
@@ -50,13 +54,14 @@ class Tetromino
                             grid.EmptyRow(i);
                             gameWorld.AddScore(100);
                             i++;
+                            gameWorld.PlayLineCleared();
                         }
                     }
                 }
             }
             LastPressedDown += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (inputHelper.KeyPressed(Keys.Up) || inputHelper.KeyPressed(Keys.E))
+            if (inputHelper.KeyPressed(Keys.Up, false) || inputHelper.KeyPressed(Keys.E, false))
             {
                 TurnRight();
                 if (!CanPlace(grid))
@@ -65,7 +70,7 @@ class Tetromino
                 }
             }
 
-            if (inputHelper.KeyPressed(Keys.RightShift) || inputHelper.KeyPressed(Keys.Q))
+            if (inputHelper.KeyPressed(Keys.RightShift, false) || inputHelper.KeyPressed(Keys.Q, false))
             {
                 TurnLeft();
                 if (!CanPlace(grid))
@@ -121,6 +126,7 @@ class Tetromino
                 }
             }
         }
+        
     }
 
     public void TurnLeft()

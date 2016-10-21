@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
+using System.Media;
 using System;
 
 
@@ -14,6 +15,10 @@ class GameWorld
         Playing, GameOver, StartUp
     }
 
+    public void GameOver()
+    {
+        gameState = GameState.GameOver;
+    }
 
     int screenWidth, screenHeight;
 
@@ -31,6 +36,8 @@ class GameWorld
     TetrisGrid grid;
 
     InputHelper inputhelper;
+
+    SoundEffect placed, lineCleared;
     
     
 
@@ -43,11 +50,27 @@ class GameWorld
         block = Content.Load<Texture2D>("Blockk");
         menu = Content.Load<Texture2D>("Menu");
         font = Content.Load<SpriteFont>("SpelFont");
+        placed = Content.Load<SoundEffect>("placed");
+        lineCleared = Content.Load<SoundEffect>("linecleared");
         grid = new TetrisGrid(block);
         inputhelper = new InputHelper();
         RandomBlock();
+
+
         
     }
+
+
+    public void PlayPlaced()
+    {
+    placed.Play();
+    }
+
+    public void PlayLineCleared()
+    {
+        lineCleared.Play();
+    }
+
 
     public void RandomBlock()
     {
@@ -93,6 +116,11 @@ class GameWorld
         {
             nowTetrom.Activate();
         }
+
+        if (!nowTetrom.CanPlace(grid))
+        {
+            GameOver();
+        }
     }
 
     public void Reset()
@@ -104,6 +132,11 @@ class GameWorld
     public void AddScore(int add)
     {
         score += add;
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 
     public void HandleInput(GameTime gameTime, InputHelper inputHelper)
@@ -132,7 +165,7 @@ class GameWorld
         if (gameState == GameState.Playing)
         {
             DrawText("Hello! It's me", new Vector2(400, 0), spriteBatch);
-            DrawText("Score: " + score, new Vector2(400, 30), spriteBatch);
+            DrawText("Score: " + GetScore() + ", FallDelay: " + nowTetrom.fallDelay, new Vector2(400, 30), spriteBatch);
             nextTetrom.Draw(gameTime, spriteBatch, block, grid);
             nowTetrom.Draw(gameTime, spriteBatch, block, grid);
         }
