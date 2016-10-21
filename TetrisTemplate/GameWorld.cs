@@ -56,7 +56,7 @@ class GameWorld
         random = new Random();
 
         block = Content.Load<Texture2D>("Blockk");
-        font = Content.Load<SpriteFont>("SpelFont");
+        font = Content.Load<SpriteFont>("Font");
         placed = Content.Load<SoundEffect>("placed");
         lineCleared = Content.Load<SoundEffect>("linecleared");
         song = Content.Load<Song>("song");
@@ -68,9 +68,7 @@ class GameWorld
         menu = new Menu(Content, block, font);
         
         RandomBlock();
-
-
-        
+  
     }
 
 
@@ -181,8 +179,9 @@ class GameWorld
 
         if (gameState == GameState.Playing)
         {
-            DrawText("Hello! It's me", new Vector2(400, 0), spriteBatch);
-            DrawText("Score: " + GetScore() + ", FallDelay: " + nowTetrom.fallDelay, new Vector2(400, 30), spriteBatch);
+            DrawText("Hello! It's Tetris!!", new Vector2(400, 30), spriteBatch);
+            DrawText("Score: " + GetScore(), new Vector2(400, 90), spriteBatch);
+            DrawText("Next:", new Vector2(400, 120), spriteBatch);
             nextTetrom.Draw(gameTime, spriteBatch, block, grid);
             nowTetrom.Draw(gameTime, spriteBatch, block, grid);
         }

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 class Tetromino
 {
-    public Vector2 blockPosition = new Vector2(13, 2);
+    public Vector2 blockPosition = new Vector2(13, 5);
     bool active = false;
     public double fallDelay;
 

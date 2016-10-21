@@ -13,12 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin SpelFont.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:SpelFont.spritefont
-
 #begin blockk.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -132,4 +126,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:TurnRight.png
+
+#begin Font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Font.spritefont
+
+#begin LargeFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:LargeFont.spritefont
 
