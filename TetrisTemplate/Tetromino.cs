@@ -15,7 +15,7 @@ class Tetromino
         fallDelay = 300;
     }
 
-    public Color[,] block = new Color[4, 4];
+    public Color[,] block = new Color[4, 4];    //creates the 2d array for the tetromino
     public Color blockColor;
     public double LastPressedDown;
     int angle; //0 = up, 1 = right, 2 = down, 3 = left
@@ -33,7 +33,7 @@ class Tetromino
     {
         if (active)
         {
-            fallDelay = 300f / Math.Pow(2.0f, gameWorld.GetScore() / 2000f);
+            fallDelay = 300f / Math.Pow(2.0f, gameWorld.GetScore() / 2000f);    //calculates the time between the tetromino automatically falling down based on the score
             if (inputHelper.KeyPressed(Keys.Down) || inputHelper.KeyPressed(Keys.S) || LastPressedDown >= fallDelay)
             {
                 blockPosition.Y++;
@@ -120,7 +120,7 @@ class Tetromino
             {
                 int x = (int)blockPosition.X + i;
                 int y = (int)blockPosition.Y + j;
-                if (GetBlock(i, j) != Color.White/* && x >= 0 && y >= 0  al in je SetBlock method beveiligd*/)
+                if (GetBlock(i, j) != Color.White)
                 {
                     grid.SetBlock(x, y, GetBlock(i, j));
                 }
@@ -177,7 +177,7 @@ class Tetromino
         }
     }
 
-    public bool CanPlace(TetrisGrid grid)
+    public bool CanPlace(TetrisGrid grid)   //checks if no part of the tetromino and tetrisgrid are overlapping
     {
         int i, j;
         for (i = 0; i < 4; i++)

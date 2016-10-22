@@ -20,7 +20,7 @@ class Menu
         right = Content.Load<Texture2D>("Right");
         down = Content.Load<Texture2D>("Down");
     }
-    //enum GameState    {Playing, GameOver, StartUp}
+
     Texture2D menuback, keyboard, button; 
     Texture2D turnRight, turnLeft, left, right, down;
     SpriteFont textfont, largefont;
