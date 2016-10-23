@@ -13,7 +13,7 @@ class GameWorld
 
     public enum GameState
     {
-        Playing, GameOver, StartUp
+        Playing, GameOver, StartUp, Pause
     }
 
     public void GameOver()
@@ -43,6 +43,8 @@ class GameWorld
 
     Menu menu;
 
+    Button menuPlay, menuStop, pause, play, stop;
+
     InputHelper inputhelper;
 
     SoundEffect placed, lineCleared;
@@ -67,10 +69,16 @@ class GameWorld
         MediaPlayer.IsRepeating = true;
         MediaPlayer.Play(song);
 
+        menuPlay = new Button(block, font, new Vector2(270, 315), "Play");
+        menuStop = new Button(block, font, new Vector2(370, 315), "Stop");
+        pause = new Button(block, font, new Vector2(400, 320), "Pause");
+        play = new Button(block, font, new Vector2(480, 320), "Play");
+        stop = new Button(block, font, new Vector2(560, 320), "Stop");
+
         grid = new TetrisGrid(block);
         inputhelper = new InputHelper();
-        menu = new Menu(Content, block, font);
-        
+        menu = new Menu(Content, block, font, menuPlay, menuStop);
+
         RandomBlock();
   
     }
@@ -78,7 +86,7 @@ class GameWorld
 
     public void PlayPlaced()
     {
-    placed.Play();
+        placed.Play();
     }
 
     public void PlayLineCleared()
@@ -138,24 +146,30 @@ class GameWorld
         }
     }
 
-    public void Reset()
-    {
-    }
-
-
+    //add points to score
     public void AddScore(int add)
     {
         score += add;
     }
 
+    //return the current score
     public int GetScore()
     {
         return score;
     }
 
-    public void HandleInput(GameTime gameTime, InputHelper inputHelper)
+    public void HandleInput(GameTime gameTime, InputHelper inputHelper, TetrisGame tetrisGame)
     {
-        if (menu.ButtonPressed(inputHelper) && (gameState == GameState.GameOver || gameState == GameState.StartUp))
+        //exit if escape of stop button in menu of gameplay
+        if (inputHelper.KeyPressed(Keys.Escape) || (menuStop.ButtonPressed(inputHelper) && (gameState == GameState.GameOver || gameState == GameState.StartUp)) || (stop.ButtonPressed(inputHelper) && (gameState == GameState.Pause || gameState == GameState.Playing)))
+            tetrisGame.Exit();
+
+        //pauses game
+        if (pause.ButtonPressed(inputHelper))
+            gameState = GameState.Pause;
+
+        //starts the 
+        if ((menuPlay.ButtonPressed(inputHelper) && (gameState == GameState.GameOver || gameState == GameState.StartUp)) || (play.ButtonPressed(inputHelper) && gameState == GameState.Pause))
         {
             if (gameState == GameState.GameOver)
             {
@@ -172,7 +186,6 @@ class GameWorld
             nextTetrom.Update(gameTime, grid, this, inputHelper);
             nowTetrom.Update(gameTime, grid, this, inputHelper);
         }
-        HandleInput(gameTime, inputHelper);
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -183,7 +196,7 @@ class GameWorld
         spriteBatch.Draw(logo, new Vector2(685, 450), null, Color.White, 0.0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
         spriteBatch.DrawString(smallfont, "Pinguin Producions", new Vector2(670, 570), Color.Black);
 
-        if (gameState == GameState.Playing)
+        if (gameState == GameState.Playing || gameState == GameState.Pause)
         {
             DrawText("Hello! It's Tetris!!", new Vector2(400, 30), spriteBatch);
             DrawText("Score: " + GetScore(), new Vector2(400, 90), spriteBatch);
@@ -193,6 +206,10 @@ class GameWorld
 
             nextTetrom.Draw(gameTime, spriteBatch, block, grid);
             nowTetrom.Draw(gameTime, spriteBatch, block, grid);
+
+            play.Draw(gameTime, this, spriteBatch);
+            pause.Draw(gameTime, this, spriteBatch);
+            stop.Draw(gameTime, this, spriteBatch);
         }
         else
         {

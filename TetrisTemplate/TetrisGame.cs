@@ -38,15 +38,14 @@ class TetrisGame : Game
     {
         spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        // create and reset the game world
+        // create the game world
         gameWorld = new GameWorld(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, Content);
-        gameWorld.Reset();
     }
 
     protected override void Update(GameTime gameTime)
     {
         inputHelper.Update(gameTime);
-        gameWorld.HandleInput(gameTime, inputHelper);
+        gameWorld.HandleInput(gameTime, inputHelper, this);
         gameWorld.Update(gameTime, inputHelper);
     }
 
@@ -73,6 +72,6 @@ class TetrisGame : Game
 | |###|        |###| |
 \_\###|________|###/_/
    /_\          /_\
-Jaap de Keizerspinguïn
+Pinguïn Poductions
 					*/
 

@@ -39,6 +39,7 @@
     </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Button.cs" />
     <Compile Include="I.cs" />
     <Compile Include="J.cs" />
     <Compile Include="L.cs" />

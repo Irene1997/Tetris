@@ -6,11 +6,13 @@ using Microsoft.Xna.Framework.Input;
 
 class Menu
 {
-    public Menu(ContentManager Content, Texture2D b, SpriteFont font)
+    public Menu(ContentManager Content, Texture2D b, SpriteFont font, Button p, Button s)
     {
         textfont = font;
         largefont = Content.Load<SpriteFont>("LargeFont");
         button = b;
+        menuPlay = p;
+        menuStop = s;
 
         menuback = Content.Load<Texture2D>("Menu");
         keyboard = Content.Load<Texture2D>("Keyboard");
@@ -24,62 +26,50 @@ class Menu
     Texture2D menuback, keyboard, button; 
     Texture2D turnRight, turnLeft, left, right, down;
     SpriteFont textfont, largefont;
-
-
-    public bool ButtonPressed(InputHelper inputHelper)
-    {
-        Vector2 position = inputHelper.MousePosition;
-        if (position.X >= 330 && position.X <= 390 && position.Y >= 320 && position.Y <= 380 && inputHelper.MouseLeftButtonPressed())
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
+    Button menuPlay, menuStop;
+    
     /*draws the menu on the screen*/
     public void Draw(GameTime gameTime, GameWorld gameWorld, SpriteBatch s)
     {
-        s.Draw(menuback, Vector2.Zero, Color.White);
-
-        if(gameWorld.GetGameState() == GameWorld.GameState.StartUp)
-        { 
-            DrawText("Welkom to Tetris", new Vector2(290, 5), s);
-            DrawText("The basic controls are: ", new Vector2(265, 35), s);
-
-            s.Draw(left, new Vector2(212, 82), Color.White);
-            DrawText("Move to the left", new Vector2(365, 80), s);
-
-            s.Draw(right, new Vector2(212, 132), Color.White);
-            DrawText("Move to the right", new Vector2(365, 130), s);
-
-            s.Draw(down, new Vector2(212, 182), Color.White);
-            DrawText("Move down", new Vector2(365, 180), s);
-
-            s.Draw(turnLeft, new Vector2(212, 232), Color.White);
-            DrawText("Turn to the left", new Vector2(365, 230), s);
-
-            s.Draw(turnRight, new Vector2(212, 282), Color.White);
-            DrawText("Turn to the right", new Vector2(365, 280), s);
-
-            s.Draw(keyboard, new Vector2(100, 390), Color.White);
-        }
-        else
+        if(gameWorld.GetGameState() != GameWorld.GameState.Pause)
         {
-            s.DrawString(largefont, "Game Over", new Vector2(250, 50), Color.Black);
-            DrawText("Score: " + gameWorld.GetScore(), new Vector2(300, 150), s);
-            DrawText("Press Play to try again", new Vector2(265, 230), s);
-           // s.Draw(logo, new Vector2(685, 450), null, Color.White, 0.0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
-            //s.DrawString(smallfont, "Pinguin Producions", new Vector2(670, 570), Color.Black);
+            s.Draw(menuback, Vector2.Zero, Color.White);
+
+            if (gameWorld.GetGameState() == GameWorld.GameState.StartUp)
+            {
+                gameWorld.DrawText("Welkom to Tetris", new Vector2(290, 5), s);
+                gameWorld.DrawText("The basic controls are: ", new Vector2(265, 35), s);
+
+                s.Draw(left, new Vector2(212, 82), Color.White);
+                gameWorld.DrawText("Move to the left", new Vector2(365, 80), s);
+
+                s.Draw(right, new Vector2(212, 132), Color.White);
+                gameWorld.DrawText("Move to the right", new Vector2(365, 130), s);
+
+                s.Draw(down, new Vector2(212, 182), Color.White);
+                gameWorld.DrawText("Move down", new Vector2(365, 180), s);
+
+                s.Draw(turnLeft, new Vector2(212, 232), Color.White);
+                gameWorld.DrawText("Turn to the left", new Vector2(365, 230), s);
+
+                s.Draw(turnRight, new Vector2(212, 282), Color.White);
+                gameWorld.DrawText("Turn to the right", new Vector2(365, 280), s);
+
+                s.Draw(keyboard, new Vector2(100, 400), Color.White);
+            }
+            else if (gameWorld.GetGameState() == GameWorld.GameState.GameOver)
+            {
+                s.DrawString(largefont, "Game Over", new Vector2(250, 50), Color.Black);
+                gameWorld.DrawText("Score: " + gameWorld.GetScore(), new Vector2(300, 150), s);
+                gameWorld.DrawText("Press Play to try again", new Vector2(265, 230), s);
+            }
+
+            menuPlay.Draw(gameTime, gameWorld, s);
+            menuStop.Draw(gameTime, gameWorld, s);
         }
-        s.Draw(button, new Vector2(330, 320), null, Color.White, 0.0f, Vector2.Zero, 2.0f, SpriteEffects.None, 0);
-        DrawText("Play", new Vector2(338, 335), s);
+        
+
     }
-    public void DrawText(string text, Vector2 positie, SpriteBatch s)
-    {
-        s.DrawString(textfont, text, positie, Color.Black);
-    }
+  
 }
 
