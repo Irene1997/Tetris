@@ -34,7 +34,7 @@ class Tetromino
         if (active)
         {
             //calculates the time between the tetromino automatically falling down based on the score
-            fallDelay = 300f / Math.Pow(1.5f, gameWorld.GetScore() / 2000f);
+            fallDelay = 300f / Math.Pow(1.3f, gameWorld.GetScore() / 2000f);
 
             //moves the tetromino down if key pressed or timer says so
             if (inputHelper.KeyPressed(Keys.Down) || inputHelper.KeyPressed(Keys.S) || LastPressedDown >= fallDelay)
