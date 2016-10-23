@@ -16,39 +16,20 @@ class GameWorld
         Playing, GameOver, StartUp, Pause
     }
 
-    public void GameOver()
-    {
-        gameState = GameState.GameOver;
-    }
-
-    public GameState GetGameState()
-    {
-        return gameState;
-    }
-
-    int screenWidth, screenHeight;
-
-    Random random;
-
-    SpriteFont font, smallfont;
-
-    Texture2D block, logo;
-
     GameState gameState = GameState.StartUp;
     int score = 0;
+    int screenWidth, screenHeight;
 
     Tetromino nowTetrom, nextTetrom;
-
     TetrisGrid grid;
-
+    Texture2D block, logo;
+    SpriteFont font, smallfont;
     Menu menu;
-
     Button menuPlay, menuStop, pause, play, stop;
-
     InputHelper inputhelper;
+    Random random;
 
     SoundEffect placed, lineCleared;
-
     Song song;
 
     public GameWorld(int width, int height, ContentManager Content)
@@ -83,22 +64,34 @@ class GameWorld
   
     }
 
+    //sets the gamestate
+    public void SetGameState(GameState state)
+    {
+        gameState = state;
+    }
 
+    //returns the gamestate
+    public GameState GetGameState()
+    {
+        return gameState;
+    }
+
+    //plays sound when block hits bottom
     public void PlayPlaced()
     {
         placed.Play();
     }
 
+    //plays sound when row is full and cleared
     public void PlayLineCleared()
     {
         lineCleared.Play();
     }
 
-
+    //creates a random block
     public void RandomBlock()
     {
-        //this is how we will display the block on the side.
-
+        //makes the block on the side the block that is falling
         nowTetrom = nextTetrom;
         
         //make random number from 0-6
@@ -131,18 +124,20 @@ class GameWorld
                 break;
         }
 
+        //if there is nothing in nowTetrom(begin of the game) call self again
         if(nowTetrom == null)
         {
             RandomBlock();
         }
+        //makes the nowTetrom active
         else
         {
             nowTetrom.Activate();
         }
-
+        //if the new tetromino cannot be drawn on anew, player is gameover
         if (!nowTetrom.CanPlace(grid))
         {
-            GameOver();
+            SetGameState(GameState.GameOver);
         }
     }
 
@@ -161,27 +156,28 @@ class GameWorld
     public void HandleInput(GameTime gameTime, InputHelper inputHelper, TetrisGame tetrisGame)
     {
         //exit if escape of stop button in menu of gameplay
-        if (inputHelper.KeyPressed(Keys.Escape) || (menuStop.ButtonPressed(inputHelper) && (gameState == GameState.GameOver || gameState == GameState.StartUp)) || (stop.ButtonPressed(inputHelper) && (gameState == GameState.Pause || gameState == GameState.Playing)))
+        if (inputHelper.KeyPressed(Keys.Escape) || (menuStop.ButtonPressed(inputHelper) && (GetGameState() == GameState.GameOver || GetGameState() == GameState.StartUp)) || (stop.ButtonPressed(inputHelper) && (GetGameState() == GameState.Pause || GetGameState() == GameState.Playing)))
             tetrisGame.Exit();
 
         //pauses game
         if (pause.ButtonPressed(inputHelper))
-            gameState = GameState.Pause;
+            SetGameState(GameState.Pause);
 
         //starts the 
-        if ((menuPlay.ButtonPressed(inputHelper) && (gameState == GameState.GameOver || gameState == GameState.StartUp)) || (play.ButtonPressed(inputHelper) && gameState == GameState.Pause))
+        if ((menuPlay.ButtonPressed(inputHelper) && (GetGameState() == GameState.GameOver || GetGameState() == GameState.StartUp)) || (play.ButtonPressed(inputHelper) && GetGameState() == GameState.Pause))
         {
-            if (gameState == GameState.GameOver)
+            if (GetGameState() == GameState.GameOver)
             {
                 grid.Clear();
                 score = 0;
             }
-            gameState = GameState.Playing;
+            SetGameState(GameState.Playing);
         }
     }
     public void Update(GameTime gameTime, InputHelper inputHelper)
     {
-        if (gameState == GameState.Playing)
+        //only update game if player is playing
+        if (GetGameState() == GameState.Playing)
         {
             nextTetrom.Update(gameTime, grid, this, inputHelper);
             nowTetrom.Update(gameTime, grid, this, inputHelper);
@@ -196,7 +192,8 @@ class GameWorld
         spriteBatch.Draw(logo, new Vector2(685, 450), null, Color.White, 0.0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
         spriteBatch.DrawString(smallfont, "Pinguin Producions", new Vector2(670, 570), Color.Black);
 
-        if (gameState == GameState.Playing || gameState == GameState.Pause)
+        //if not menu, draw the game stuff
+        if (gameState == GameState.Playing || GetGameState() == GameState.Pause)
         {
             DrawText("Hello! It's Tetris!!", new Vector2(400, 30), spriteBatch);
             DrawText("Score: " + GetScore(), new Vector2(400, 90), spriteBatch);
@@ -211,6 +208,7 @@ class GameWorld
             pause.Draw(gameTime, this, spriteBatch);
             stop.Draw(gameTime, this, spriteBatch);
         }
+        //if menu, draw menu stuff
         else
         {
             menu.Draw(gameTime, this, spriteBatch);
@@ -219,9 +217,7 @@ class GameWorld
         spriteBatch.End();    
     }
 
-    /*
-     * utility method for drawing text on the screen
-     */
+    //utility method for drawing text on the screen
     public void DrawText(string text, Vector2 positie, SpriteBatch spriteBatch)
     {
         spriteBatch.DrawString(font, text, positie, Color.Black);

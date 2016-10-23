@@ -10,43 +10,23 @@ class TetrisGrid
     public TetrisGrid(Texture2D b)
     {
         gridblock = b;
-        position = Vector2.Zero;
         offset = gridblock.Width;
         this.Clear();
     }
 
-    Random random;
-
-    /*sprite for representing a single grid block*/
+    //sprite for representing a single grid block
     Texture2D gridblock;
 
-    /*the position of the tetris grid */
+    //the position of each block in the tetris grid 
     Vector2 position;
 
-    /*matrix voor het tekenen van de grid*/
+    //matrix voor het tekenen van de grid
     Color[,] matrix = new Color[12,20];
 
-    /* width of sprite for offset */
+    //width of sprite for offset 
     float offset;
 
-
-    /*width in terms of grid elements */
-    public int Width
-    {
-        get { return 12; }
-    }
-
-    /*
-     * height in terms of grid elements
-     */
-    public int Height
-    {
-        get { return 20; }
-    }
-
-    /*
-     * clears the grid
-     */
+    //clears the grid
     public void Clear()
     {
         int i, j;
@@ -58,9 +38,9 @@ class TetrisGrid
                 matrix[i, j] = Color.White;
             }
         }
-
-        
+  
     }
+
     //checks if a row is full, if so return true, else return false
     public bool RowFull(int y)
     {
@@ -74,6 +54,7 @@ class TetrisGrid
         return true;
     }
 
+    //empties a row by moving row above onto this one
     public void EmptyRow(int y)
     {
         for (int i = y; i > 0; i--)
@@ -85,6 +66,7 @@ class TetrisGrid
         }
     }
 
+    //returns color of a matrix position
     public Color GetMatrix(int i, int j)
     {
         if (i >= 0 && i <= 11 && j >= 0 && j <= 19)
@@ -101,6 +83,7 @@ class TetrisGrid
         }
     }
 
+    //sets the block in the grid(on bottom)
     public void SetBlock(int x, int y, Color color)
     {
         if (x >= 0 && x <= 11 && y >= 0 && y <= 19)
@@ -110,9 +93,7 @@ class TetrisGrid
     }
 
 
-    /*
-     * draws the grid on the screen
-     */
+    //draws the grid on the screen
     public void Draw(GameTime gameTime, SpriteBatch s)
     {
         int i, j;

@@ -35,18 +35,22 @@ class Tetromino
         {
             //calculates the time between the tetromino automatically falling down based on the score
             fallDelay = 300f / Math.Pow(1.5f, gameWorld.GetScore() / 2000f);
+
+            //moves the tetromino down if key pressed or timer says so
             if (inputHelper.KeyPressed(Keys.Down) || inputHelper.KeyPressed(Keys.S) || LastPressedDown >= fallDelay)
             {
                 blockPosition.Y++;
                 LastPressedDown = 0;
+                //if the block does not collide
                 if (!CanPlace(grid))
                 {
                     blockPosition.Y--;
                     /*place tetromino in matrix and place next tetromino*/
                     PlaceBlock(grid);
-                    gameWorld.AddScore(10);
-                    gameWorld.RandomBlock();
-                    gameWorld.PlayPlaced();
+                    gameWorld.AddScore(10); // up score
+                    gameWorld.RandomBlock(); //create new block
+                    gameWorld.PlayPlaced(); //play soundeffect
+                    //check if a row is full, if so remove and up score
                     for (int i = 19; i >= 0; i--)
                     {
                         if (grid.RowFull(i))
@@ -62,6 +66,7 @@ class Tetromino
             }
             LastPressedDown += gameTime.ElapsedGameTime.TotalMilliseconds;
 
+            // turns the tetromino to the left
             if (inputHelper.KeyPressed(Keys.Up, false) || inputHelper.KeyPressed(Keys.E, false))
             {
                 TurnRight();
@@ -71,6 +76,7 @@ class Tetromino
                 }
             }
 
+            // turns the tetromino to the right
             if (inputHelper.KeyPressed(Keys.RightShift, false) || inputHelper.KeyPressed(Keys.Q, false))
             {
                 TurnLeft();
@@ -80,6 +86,7 @@ class Tetromino
                 }
             }
 
+            // moves the tetromino to the left
             if (inputHelper.KeyPressed(Keys.Left) || inputHelper.KeyPressed(Keys.A))
             {
                 blockPosition.X--;
@@ -89,6 +96,7 @@ class Tetromino
                 }
             }
 
+            // moves the tetromino to the right
             if (inputHelper.KeyPressed(Keys.Right) || inputHelper.KeyPressed(Keys.D))
             {
                 blockPosition.X++;
@@ -100,6 +108,7 @@ class Tetromino
         }
     }
 
+    //return color of the block
     public Color GetBlock(int i, int j)
     {
         if (i >= 0 && i <= 3 && j >= 0 && j <= 3)
@@ -112,6 +121,7 @@ class Tetromino
         }
     }
 
+    //places the block in the grid(on bottom)
     public void PlaceBlock(TetrisGrid grid)
     {
         int i, j;
@@ -130,6 +140,7 @@ class Tetromino
         
     }
 
+    //turns tetromino left
     public void TurnLeft()
     {
         if (angle == 0)
@@ -154,6 +165,7 @@ class Tetromino
         }
     }
 
+    //turns tetromino right
     public void TurnRight()
     {
         if (angle == 0)
@@ -178,7 +190,8 @@ class Tetromino
         }
     }
 
-    public bool CanPlace(TetrisGrid grid)   //checks if no part of the tetromino and tetrisgrid are overlapping
+    //checks if no part of the tetromino and tetrisgrid are overlapping
+    public bool CanPlace(TetrisGrid grid)   
     {
         int i, j;
         for (i = 0; i < 4; i++)
@@ -223,6 +236,7 @@ class Tetromino
     public virtual void Down() { }
     public virtual void Left() { }
 
+    //clears the blockgrid so new one can be drawn(if turns, old blocks do not show)
     public void Clear()
     {
         int i, j;

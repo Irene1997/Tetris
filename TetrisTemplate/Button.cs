@@ -13,7 +13,8 @@ using Microsoft.Xna.Framework.Input;
             textfont = font;
             buttonPosition = buttonP;
             text = t;
-
+            
+            //calculates position of text on button
             textPosition.X = buttonPosition.X + (1.25f * button.Width) - (textfont.MeasureString(text).X / 2);
             textPosition.Y = buttonPosition.Y + (1.25f * button.Height) - (textfont.MeasureString(text).Y / 2);
         }
@@ -25,6 +26,7 @@ using Microsoft.Xna.Framework.Input;
 
         public bool ButtonPressed(InputHelper inputHelper)
         {
+            //checks if the button was pressed
             Vector2 mousePosition = inputHelper.MousePosition;
             if (mousePosition.X >= buttonPosition.X && mousePosition.X <= (buttonPosition.X + 60) && mousePosition.Y >= buttonPosition.Y && mousePosition.Y <= (buttonPosition.Y + 60) && inputHelper.MouseLeftButtonPressed())
             {
@@ -38,7 +40,7 @@ using Microsoft.Xna.Framework.Input;
 
         public void Draw(GameTime gameTime, GameWorld gameWorld, SpriteBatch s)
         {
-
+            //draws button + text
             s.Draw(button, buttonPosition, null, Color.White, 0.0f, Vector2.Zero, 2.5f, SpriteEffects.None, 0);
             gameWorld.DrawText(text, textPosition, s);
         }
